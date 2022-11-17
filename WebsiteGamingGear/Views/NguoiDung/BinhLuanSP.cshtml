@@ -1,0 +1,17 @@
+﻿@model IEnumerable<WebsiteGamingGear.Models.DanhGia>
+@{
+    ViewBag.Title = "BinhLuanSP";
+    Layout = null;
+}
+
+@foreach (var sanpham in Model)
+{
+    <div class="comment-author-infos pt-25">
+        <span>@sanpham.tenNguoiDanhGia</span>
+        <em>@sanpham.ngayThem</em>
+    </div>
+    <div class="comment-details">
+        <p>@sanpham.noiDung</p>
+    </div>
+}
+

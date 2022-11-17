@@ -1,0 +1,137 @@
+﻿@using WebsiteGamingGear.Models
+@model List<GioHang>
+@{ 
+    ViewBag.Title = "GioHang";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<!-- shopping-cart31:32-->
+@Html.Partial("Header")
+<body>
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+    <!-- Begin Body Wrapper -->
+    <div class="body-wrapper">
+        <!-- Begin Header Area -->
+        @Html.Partial("MenuTop")
+        <!-- Header Area End Here -->
+        <!-- Begin Li's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="@Url.Action("TrangChu", "NguoiDung")">Trang chủ</a></li>
+                        <li class="active">Giỏ hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Li's Breadcrumb Area End Here -->
+        <!--Shopping Cart Area Strat-->
+        <div class="Shopping-cart-area pt-60 pb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="table-content table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="li-product-remove">Xóa</th>
+                                            <th class="li-product-thumbnail">Ảnh</th>
+                                            <th width="300" class="cart-product-name">Tên sản phẩm</th>
+                                            <th class="li-product-price">Giá</th>
+                                            <th class="li-product-quantity">Số lượng</th>
+                                            <th class="li-product-subtotal">Tổng tiền</th>
+                                            <th>Cập nhật</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td class="li-product-remove">
+                                                <i class="fa fa-times">@Html.ActionLink("Xóa", "XoaGioHang", new { @iMaSP = item.iIdSanPham })</i>
+                                            </td>
+                                            <td class="li-product-thumbnail">
+                                                <a href="@Url.Action("ChiTietSanPham", "NguoiDung", new { id = item.iIdSanPham})">
+                                                    <img width="200" src="~/Content/images/@item.sHinhAnhSP"
+                                                         alt="Li's Product Image" />
+                                                </a>
+                                            </td>
+                                            <td class="li-product-name">
+                                                <a href="@Url.Action("ChiTietSanPham", "NguoiDung", new { id = item.iIdSanPham})">@item.sTenSanPham</a>
+                                            </td>
+                                            @using (Html.BeginForm("CapNhatGioHang", "GioHang", new { @iMaSP = item.iIdSanPham }))
+                                            {
+                                                <td class="li-product-price">
+                                                    <span class="amount">@String.Format("{0:0,0}", item.iDonGia) VNĐ</span>
+                                                </td>
+                                                <td class="quantity">
+                                                    <div class="cart-plus-minus">
+                                                        <input class="cart-plus-minus-box"
+                                                               type="number" min="1" name="txtSoLuong" value="@item.iSoLuong" />
+                                                        <div class="dec qtybutton">
+                                                            <i class="fa fa-angle-down"></i>
+                                                        </div>
+                                                        <div class="inc qtybutton">
+                                                            <i class="fa fa-angle-up"></i>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal">
+                                                    <span class="amount">@String.Format("{0:0,0}", item.iThanhTien) VNĐ</span>
+                                                </td>
+                                                <td>
+                                                    <button><i class="fa fa-refresh"></i></button>
+                                                </td>
+                                            }
+
+                                        </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div> 
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="coupon-all">
+                                       
+                                        <div class="coupon2">
+                                            <div class="button">@Html.ActionLink("Xóa giỏ hàng", "XoaTatCaGioHang")</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 ml-auto">
+                                    <div class="cart-page-total">
+                                        <h2>Hóa đơn</h2>
+                                        <ul>
+                                            <li>Tổng số lượng <span>@ViewBag.Tongsoluong</span></li>
+                                            <li>Tổng tiền <span>@String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ</span></li>
+                                        </ul>
+                                        <a href="@Url.Action("DatHang", "GioHang")">Tiến hành thanh toán</a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Shopping Cart Area End-->
+        <!-- Begin Footer Area -->
+        @Html.Partial("Footer")
+    </div>
+        <!-- Body Wrapper End Here -->
+        @Html.Partial("JS")
+</body>
+
+<!-- shopping-cart31:32-->
+</html>
+

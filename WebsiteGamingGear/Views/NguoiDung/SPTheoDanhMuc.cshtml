@@ -1,0 +1,424 @@
+﻿
+@{
+    ViewBag.Title = "SPTheoDanhMuc";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<!-- shop-4-column31:48-->
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+</head>
+@Html.Partial("Header")
+<body>
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+    <!-- Begin Body Wrapper -->
+    <div class="body-wrapper">
+        <!-- Begin Header Area -->
+        @Html.Partial("MenuTop")
+        <!-- Header Area End Here -->
+        <!-- Begin Li's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li class="active">Sản phẩm</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Li's Breadcrumb Area End Here -->
+        <!-- Begin Header Middle Searchbox Area -->
+        <form asp-controller="NguoiDung" asp-action="SPTheoDanhMuc" class="hm-searchbox" style="margin-left: 440px;">
+            <input type="text" name="searchString" placeholder="Tìm kiếm sản phẩm ..." />
+            <button class="li-btn" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        <!-- Header Middle Searchbox Area End Here -->
+        <!-- Begin Li's Content Wraper Area -->
+        <div class="content-wraper pt-60 pb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Begin Li's Banner Area -->
+                        <div class="single-banner shop-page-banner">
+                            <a href="#">
+                                <img src="images/bg-banner/2.jpg" alt="Li's Static Banner" />
+                            </a>
+                        </div>
+                        <!-- Li's Banner Area End Here -->
+                        <!-- shop-top-bar start -->
+                        <div class="shop-top-bar mt-30">
+                            <div class="shop-bar-inner">
+                                <div class="product-view-mode">
+                                    <!-- shop-item-filter-list start -->
+                                    <ul class="nav shop-item-filter-list" role="tablist">
+                                        <li class="active" role="presentation">
+                                            <a aria-selected="true"
+                                               class="active show"
+                                               data-toggle="tab"
+                                               role="tab"
+                                               aria-controls="grid-view"
+                                               href="#grid-view">
+                                                <i class="fa fa-th"></i>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a data-toggle="tab"
+                                               role="tab"
+                                               aria-controls="list-view"
+                                               href="#list-view">
+                                                <i class="fa fa-th-list"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!-- shop-item-filter-list end -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- shop-top-bar end -->
+                        <!--left sidebar start-->
+                        <div class="col-lg-3 order-lg-1 order-2">
+                            <div class="li-blog-sidebar-wrapper">
+
+                                <div class="li-blog-sidebar pt-25">
+                                    <h4 class="li-blog-sidebar-title">Danh mục</h4>
+                                    <ul class="li-blog-archive">
+                                        @Html.Action("DanhMuc", "NguoiDung")
+                                    </ul>
+                                </div>
+                                <div class="li-blog-sidebar">
+                                    <h4 class="li-blog-sidebar-title">Thể loại</h4>
+                                    <ul class="li-blog-archive">
+                                        @Html.Action("TheLoai", "NguoiDung")
+                                    </ul>
+                                </div>                               
+                            </div>
+                        </div>
+                        <!--left sidebar end-->
+                        <!-- shop-products-wrapper start -->
+                        <div class="shop-products-wrapper">
+                            <div class="tab-content">
+                                <div id="grid-view"
+                                     class="tab-pane fade active show"
+                                     role="tabpanel">
+                                    <div class="product-area shop-product-area">
+                                        <div class="row">
+                                            @foreach (var sanpham in Model)
+                                            {
+                                                <div class="col-lg-3 col-md-4 col-sm-6 mt-40">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("ChiTietSanPham", "NguoiDung", new { id = sanpham.idSanPham})">
+                                                                <img src="~/Content/images/@sanpham.hinhAnh"
+                                                                     alt="Li's Product Image" />
+                                                            </a>
+                                                            <span class="sticker">Mới</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+
+                                                                <div class="rating-box">
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                </div>
+
+                                                                <h4>
+                                                                    <a class="product_name"
+                                                                       href="@Url.Action("ChiTietSanPham", "NguoiDung", new { id = sanpham.idSanPham})">@sanpham.tenSanPham</a>
+                                                                </h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@String.Format("{0:0,0}", sanpham.gia) VNĐ</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        <a href="@Url.Action("ThemGioHang", "GioHang", new { @iIdSanPham = sanpham.idSanPham, @strURL = Request.Url.ToString() })">Mua hàng</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#"
+                                                                           title="quick view"
+                                                                           class="quick-view-btn"
+                                                                           data-toggle="modal"
+                                                                           data-target="#exampleModalCenter">
+                                                                            <i class="fa fa-eye"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="list-view"
+                                     class="tab-pane product-list-view fade"
+                                     role="tabpanel">
+                                    <div class="row">
+                                        <div class="col">
+                                            @foreach (var sanpham in Model)
+                                            {
+                                                <div class="row product-layout-list">
+                                                    <div class="col-lg-3 col-md-5">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("ChiTietSanPham", "NguoiDung", new { id = sanpham.idSanPham})">
+                                                                <img src="~/Content/images/@sanpham.hinhAnh"
+                                                                     alt="Li's Product Image" />
+                                                            </a>
+                                                            <span class="sticker">Mới</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-7">
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+
+                                                                <div class="rating-box">
+                                                                    <ul class="rating">
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                    </ul>
+                                                                </div>
+
+                                                                <h4>
+                                                                    <a class="product_name"
+                                                                       href="@Url.Action("ChiTietSanPham", "NguoiDung", new { id = sanpham.idSanPham})">@sanpham.tenSanPham</a>
+                                                                </h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@String.Format("{0:0,0}", sanpham.gia) VNĐ</span>
+                                                                </div>
+                                                                <p>
+                                                                    @sanpham.moTa
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="shop-add-action mb-xs-30">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart">
+                                                                    <a href="@Url.Action("ThemGioHang", "GioHang", new { @iIdSanPham = sanpham.idSanPham, @strURL = Request.Url.ToString() })">Mua hàng</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="quick-view"
+                                                                       data-toggle="modal"
+                                                                       data-target="#exampleModalCenter"
+                                                                       href="#"><i class="fa fa-eye"></i>Xem nhanh</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- shop-products-wrapper end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content Wraper Area End Here -->
+        <!-- Begin Footer Area -->
+        @Html.Partial("Footer")
+        <!-- Footer Area End Here -->
+        <!-- Begin Quick View | Modal Area -->
+        <div class="modal fade modal-wrapper" id="exampleModalCenter">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-inner-area row">
+                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                <!-- Product Details Left -->
+                                <div class="product-details-left">
+                                    <div class="product-details-images slider-navigation-1">
+                                        <div class="lg-image">
+                                            <img src="images/product/large-size/1.jpg"
+                                                 alt="product image" />
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="images/product/large-size/2.jpg"
+                                                 alt="product image" />
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="images/product/large-size/3.jpg"
+                                                 alt="product image" />
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="images/product/large-size/4.jpg"
+                                                 alt="product image" />
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="images/product/large-size/5.jpg"
+                                                 alt="product image" />
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="images/product/large-size/6.jpg"
+                                                 alt="product image" />
+                                        </div>
+                                    </div>
+                                    <div class="product-details-thumbs slider-thumbs-1">
+                                        <div class="sm-image">
+                                            <img src="images/product/small-size/1.jpg"
+                                                 alt="product image thumb" />
+                                        </div>
+                                        <div class="sm-image">
+                                            <img src="images/product/small-size/2.jpg"
+                                                 alt="product image thumb" />
+                                        </div>
+                                        <div class="sm-image">
+                                            <img src="images/product/small-size/3.jpg"
+                                                 alt="product image thumb" />
+                                        </div>
+                                        <div class="sm-image">
+                                            <img src="images/product/small-size/4.jpg"
+                                                 alt="product image thumb" />
+                                        </div>
+                                        <div class="sm-image">
+                                            <img src="images/product/small-size/5.jpg"
+                                                 alt="product image thumb" />
+                                        </div>
+                                        <div class="sm-image">
+                                            <img src="images/product/small-size/6.jpg"
+                                                 alt="product image thumb" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--// Product Details Left -->
+                            </div>
+
+                            <div class="col-lg-7 col-md-6 col-sm-6">
+                                <div class="product-details-view-content pt-60">
+                                    <div class="product-info">
+                                        <h2>Today is a good day Framed poster</h2>
+                                        <span class="product-details-ref">Reference: demo_15</span>
+                                        <div class="rating-box pt-20">
+                                            <ul class="rating rating-with-review-item">
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                <li class="review-item">
+                                                    <a href="#">Read Review</a>
+                                                </li>
+                                                <li class="review-item">
+                                                    <a href="#">Write Review</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box pt-20">
+                                            <span class="new-price new-price-2">$57.98</span>
+                                        </div>
+                                        <div class="product-desc">
+                                            <p>
+                                                <span>
+                                                    100% cotton double printed dress. Black and white
+                                                    striped top and orange high waisted skater skirt
+                                                    bottom. Lorem ipsum dolor sit amet, consectetur
+                                                    adipisicing elit. quibusdam corporis, earum facilis
+                                                    et nostrum dolorum accusamus similique eveniet quia
+                                                    pariatur.
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="product-variants">
+                                            <div class="produt-variants-size">
+                                                <label>Dimension</label>
+                                                <select class="nice-select">
+                                                    <option value="1" title="S" selected="selected">
+                                                        40x60cm
+                                                    </option>
+                                                    <option value="2" title="M">60x90cm</option>
+                                                    <option value="3" title="L">80x120cm</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="single-add-to-cart">
+                                            <form action="#" class="cart-quantity">
+                                                <div class="quantity">
+                                                    <label>Quantity</label>
+                                                    <div class="cart-plus-minus">
+                                                        <input class="cart-plus-minus-box"
+                                                               value="1"
+                                                               type="text" />
+                                                        <div class="dec qtybutton">
+                                                            <i class="fa fa-angle-down"></i>
+                                                        </div>
+                                                        <div class="inc qtybutton">
+                                                            <i class="fa fa-angle-up"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="add-to-cart" type="submit">
+                                                    Add to cart
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="product-additional-info pt-25">
+                                            <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                            <div class="product-social-sharing pt-25">
+                                                <ul>
+                                                    <li class="facebook">
+                                                        <a href="#"><i class="fa fa-facebook"></i>Facebook</a>
+                                                    </li>
+                                                    <li class="twitter">
+                                                        <a href="#"><i class="fa fa-twitter"></i>Twitter</a>
+                                                    </li>
+                                                    <li class="google-plus">
+                                                        <a href="#"><i class="fa fa-google-plus"></i>Google +</a>
+                                                    </li>
+                                                    <li class="instagram">
+                                                        <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Quick View | Modal Area End Here -->
+    </div>
+    <!-- Body Wrapper End Here -->
+    @Html.Partial("JS")
+</body>
+
+<!-- shop-4-column31:48-->
+</html>
+
+

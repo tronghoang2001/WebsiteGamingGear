@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "TTTheoTheLoai";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<!-- blog-left-sidebar31:50-->
+@Html.Partial("Header")
+<body>
+    <!-- Begin Body Wrapper -->
+    <div class="body-wrapper">
+        <!-- Begin Header Area -->
+        @Html.Partial("MenuTop")
+        <!-- Header Area End Here -->
+        <!-- Begin Li's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="@Url.Action("TrangChu","NguoiDung")">Trang chủ</a></li>
+                        <li class="active">Tin tức</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Li's Breadcrumb Area End Here -->
+        <!-- Begin Li's Main Blog Page Area -->
+        <div class="li-main-blog-page pt-60 pb-55">
+            <div class="container">
+                <div class="row">
+                    <!-- Begin Li's Blog Sidebar Area -->
+                    <div class="col-lg-3 order-lg-1 order-2">
+                        <div class="li-blog-sidebar-wrapper">
+                            <div class="li-blog-sidebar pt-25">
+                                <h4 class="li-blog-sidebar-title">Danh mục</h4>
+                                <ul class="li-blog-archive">
+                                    @Html.Action("DanhMucTT", "NguoiDung")
+                                </ul>
+                            </div>
+                            <div class="li-blog-sidebar">
+                                <h4 class="li-blog-sidebar-title">Thể loại</h4>
+                                <ul class="li-blog-archive">
+                                    @Html.Action("TheLoaiTT", "NguoiDung")
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Li's Blog Sidebar Area End Here -->
+                    <!-- Begin Li's Main Content Area -->
+                    <div class="col-lg-9 order-lg-2 order-1">
+                        <div class="row li-main-content">
+                            @helper Truncate(string input, int length)
+                            {
+                                if (input.Length < length)
+                                {
+                                    @input
+                                }
+                                else
+                                {
+                                    @input.Substring(0, length)<text>...</text>
+                                }
+                            }
+                            @foreach (var tintuc in Model)
+                            {
+                                String truncate = Truncate(tintuc.noiDung, 128).ToString();
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="li-blog-single-item pb-25">
+                                        <div class="li-blog-banner">
+                                            <a href="@Url.Action("ChiTietTinTuc", "NguoiDung", new { id = tintuc.idTinTuc})">
+                                                <img class="img-full"
+                                                     src="~/Content/images/@tintuc.hinhAnh1"
+                                                     alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="li-blog-content">
+                                            <div class="li-blog-details">
+                                                <h3 class="li-blog-heading pt-25">
+                                                    <a href="@Url.Action("ChiTietTinTuc", "NguoiDung", new { id = tintuc.idTinTuc})">@tintuc.tieuDeTin</a>
+                                                </h3>
+                                                <p>
+                                                    @Html.Raw(HttpUtility.HtmlDecode(truncate))
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <!-- Li's Main Content Area End Here -->
+                </div>
+            </div>
+        </div>
+        <!-- Li's Main Blog Page Area End Here -->
+        <!-- Begin Footer Area -->
+        @Html.Partial("Footer")
+    </div>
+    <!-- Body Wrapper End Here -->
+    @Html.Partial("JS")
+</body>
+
+<!-- blog-left-sidebar31:55-->
+</html>
+
+
+

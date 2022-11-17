@@ -1,0 +1,139 @@
+﻿@model WebsiteGamingGear.Models.TinTuc
+
+@{
+    ViewBag.Title = "ChiTietTinTuc";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<!-- blog-details-left-sidebar31:56-->
+@Html.Partial("Header")
+<body>
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+    <!-- Begin Body Wrapper -->
+    <div class="body-wrapper">
+        <!-- Begin Header Area -->
+        @Html.Partial("MenuTop")
+        <!-- Header Area End Here -->
+        <!-- Begin Li's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="@Url.Action("TrangChu", "NguoiDung")">Trang chủ</a></li>
+                        <li class="active">Chi tiết tin tức</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Li's Breadcrumb Area End Here -->
+        <!-- Begin Li's Main Blog Page Area -->
+        <div class="li-main-blog-page li-main-blog-details-page pt-60 pb-60 pb-sm-45 pb-xs-45">
+            <div class="container">
+                <div class="row">
+                    <!-- Begin Li's Blog Sidebar Area -->
+                    <div class="col-lg-3 order-lg-1 order-2">
+                        <div class="li-blog-sidebar-wrapper">
+                            <div class="li-blog-sidebar pt-25">
+                                <h4 class="li-blog-sidebar-title">Danh mục</h4>
+                                <ul class="li-blog-archive">
+                                    @Html.Action("DanhMucTT", "NguoiDung")
+                                </ul>
+                            </div>                          
+                            <div class="li-blog-sidebar">
+                                <h4 class="li-blog-sidebar-title">Tin tức liên quan</h4>
+                                @Html.Action("TinTucLienQuan", "NguoiDung", new { @iddanhmuc = Model.idDanhMucTT})
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Li's Blog Sidebar Area End Here -->
+                    <!-- Begin Li's Main Content Area -->
+                    <div class="col-lg-9 order-lg-2 order-1">
+                        <div class="row li-main-content">
+                            <div class="col-lg-12">
+                                <div class="li-blog-single-item pb-30">
+                                    <div class="li-blog-banner">
+                                        <a href="blog-details.html">
+                                            <img class="img-full"
+                                                 src="~/Content/images/@Model.hinhAnh1"
+                                                 alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="li-blog-content">
+                                        <div class="li-blog-details">
+                                            <h3 class="li-blog-heading pt-25">
+                                                <a href="#">@Model.tieuDeTin</a>
+                                            </h3>
+                                            
+                                            <!-- Blog Blockquote Area End Here -->
+                                            <p>
+                                                @Html.Raw(HttpUtility.HtmlDecode(Model.noiDung))
+                                            </p>
+                                            <div class="li-blog-sharing text-center pt-30">
+                                                <h4>share this post:</h4>
+                                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Begin Li's Blog Comment Section -->
+                                <div class="li-comment-section">
+                                    <h3>Bình luận</h3>
+                                    <ul>
+                                        @Html.Action("BinhLuanTT","NguoiDung", new { id = Model.idTinTuc})
+                                    </ul>
+                                </div>
+                                <!-- Li's Blog Comment Section End Here -->
+                                <!-- Begin Blog comment Box Area -->
+                                <div class="li-blog-comment-wrapper">
+                                    @using (Html.BeginForm("ThemBinhLuanTT","NguoiDung", new { id = Model.idTinTuc}, FormMethod.Post, null))
+                                    {
+                                        @Html.ValidationSummary(true)
+                                        <div class="comment-post-box">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <label>Bình luận</label>
+                                                    <textarea id="noiDungBL" name="noiDungBL"
+                                                              placeholder="Bình luận của bạn"></textarea>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="coment-btn pt-30 pb-sm-30 pb-xs-30 f-left">
+                                                        <input class="li-btn-2"
+                                                               type="submit"
+                                                               name="submit"
+                                                               value="Gửi" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    </div>
+                                <!-- Blog comment Box Area End Here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Li's Main Content Area End Here -->
+                </div>
+            </div>
+        </div>
+        <!-- Li's Main Blog Page Area End Here -->
+        <!-- Begin Footer Area -->
+        @Html.Partial("Footer")
+        <!-- Footer Area End Here -->
+    </div>
+    <!-- Body Wrapper End Here -->
+    @Html.Partial("JS")
+</body>
+
+<!-- blog-details-left-sidebar32:00-->
+</html>
+

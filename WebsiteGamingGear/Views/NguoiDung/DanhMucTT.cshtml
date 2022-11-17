@@ -1,0 +1,8 @@
+﻿@model IEnumerable<WebsiteGamingGear.Models.DanhMucTinTuc>
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("TTTheoDanhMuc", "NguoiDung", new { id = item.idDanhMucTT})">@item.tenDanhMuc</a></li>
+}
+
+

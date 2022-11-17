@@ -1,0 +1,181 @@
+﻿@using WebsiteGamingGear.Models
+@{
+    TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
+}
+<header>
+    <!-- Begin Header Top Area -->
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <!-- Begin Header Top Left Area -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="header-top-left">
+                        <ul class="phone-wrap">
+                            <li>
+                                <span>Điện thoại:</span><a href="#">(+84) 774 880 211</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Header Top Left Area End Here -->
+                <!-- Begin Header Top Right Area -->
+                <div class="col-lg-9 col-md-8">
+                    <div class="header-top-right">
+                        <ul class="ht-menu">
+                            <!-- Begin Setting Area -->
+                            @if (HttpContext.Current.Session["TaiKhoan"] == null)
+                            {
+                                <li>
+                                    <div class="ht-setting-trigger"><span>Tài Khoản</span></div>
+                                    <div class="setting ht-setting">
+                                        <ul class="ht-setting-list">
+                                            <li><a href="@Url.Action("DangNhap", "Account")">Đăng nhập</a></li>
+                                            <li><a href="@Url.Action("DangKy", "Account")">Đăng ký</a></li>
+                                            <li><a href="@Url.Action("QuenMatKhau", "Account")">Quên mật khẩu</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                            }
+                            else
+                            {
+                                if (tk.quyen == 1)
+                                {
+                                    <li>
+                                        <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="#">Quản trị</a></li>
+                                                <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                }
+                                if (tk.quyen == 3)
+                                {
+                                    <li>
+                                        <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="#">Đơn hàng</a></li>
+                                                <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                }
+                                if (tk.quyen == 2)
+                                {
+                                    <li>
+                                        <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
+                                                <li><a href="#">Thông tin tài khoản</a></li>
+                                                <li><a href="#">Quản lý đơn hàng</a></li>
+                                                <li><a href="@Url.Action("DoiMatKhau", "Account")">Đổi mật khẩu</a></li>
+                                                <li><a href="#">Địa chỉ</a></li>
+                                                <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                }
+                            }
+
+
+                            <!-- Setting Area End Here -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- Header Top Right Area End Here -->
+            </div>
+        </div>
+    </div>
+    <!-- Header Top Area End Here -->
+    <!-- Begin Header Middle Area -->
+    <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+        <div class="container">
+            <div class="row">
+                <!-- Begin Header Logo Area -->
+                <div class="col-lg-3">
+                    <div class="logo pb-sm-30 pb-xs-30">
+                        <a href="@Url.Action("TrangChu", "NguoiDung")">
+                            <img src="~/Content/images/logoHQ.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+                <!-- Header Logo Area End Here -->
+                <!-- Begin Header Middle Right Area -->
+                <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
+                    
+                    <!-- Begin Header Middle Right Area -->
+                    <div class="header-middle-right">
+                        <ul class="hm-menu">
+                            <!-- Begin Header Mini Cart Area -->
+                            <li class="hm-minicart">
+                                <div class="hm-minicart-trigger">
+                                    <span class="item-icon"></span>
+                                    @Html.Action("GioHangPartial", "GioHang")
+                                </div>
+                                <span></span>
+                                <div class="minicart">
+                                    <div class="minicart-button">
+                                        <a href="@Url.Action("GioHang", "GioHang")"
+                                           class="li-button li-button-fullwidth li-button-dark">
+                                            <span>Xem giỏ hàng</span>
+                                        </a>
+                                        <a href="@Url.Action("DatHang", "GioHang")"
+                                           class="li-button li-button-fullwidth">
+                                            <span>Thanh toán</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Header Mini Cart Area End Here -->
+                        </ul>
+                    </div>
+                    <!-- Header Middle Right Area End Here -->
+                </div>
+                <!-- Header Middle Right Area End Here -->
+            </div>
+        </div>
+    </div>
+    <!-- Header Middle Area End Here -->
+    <!-- Begin Header Bottom Area -->
+    <div class="header-bottom header-sticky d-none d-lg-block d-xl-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Begin Header Bottom Menu Area -->
+                    <div class="hb-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="@Url.Action("TrangChu", "NguoiDung")">Trang chủ</a>
+                                </li>
+                                <li class="megamenu-holder">
+                                    <a href="@Url.Action("SanPham", "NguoiDung")">Sản phẩm</a>
+                                </li>
+                                <li class="dropdown-holder">
+                                    <a href="@Url.Action("TinTuc", "NguoiDung")">Tin tức</a>
+                                </li>
+                                <li class="megamenu-holder">
+                                    <a href="@Url.Action("LienHe", "NguoiDung")">Liên hệ</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Header Bottom Menu Area End Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Bottom Area End Here -->
+    <!-- Begin Mobile Menu Area -->
+    <div class="mobile-menu-area d-lg-none d-xl-none col-12">
+        <div class="container">
+            <div class="row">
+                <div class="mobile-menu"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu Area End Here -->
+</header>

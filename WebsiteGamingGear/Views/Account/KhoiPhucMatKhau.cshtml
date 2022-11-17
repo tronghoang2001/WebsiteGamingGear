@@ -1,0 +1,63 @@
+﻿@model GamingGear.Models.Account.KhoiPhucMatKhau
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("KhoiPhucMatKhau", "Account", null, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <!--begin::Row-->
+        <div class="row justify-content-sm-center h-100">
+            <!--begin::Col-->
+            <div class="col-lg-5 col-xl-4 col-md-6 col-12">
+                <!--begin::Card-->
+                <div class="boder_account">
+                    <!--begin::Card Body-->
+                    <div class="card-body">
+                        <p class="card-title h4 mb-2 center text-uppercase font_family_ChakraPetch_semibold">Cập nhật mật khẩu</p>
+                        <!--begin::Form-->
+                        <form method="POST">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(a => a.resetCode)
+                            <!--begin::Input Form Group-->
+                            <div class="w-100">
+                                <!--begin:label-->
+                                <label class="mb-1 text-muted">Mật khẩu mới</label>
+                                <!--end:label-->
+                            </div>
+                            <div class="form-group mb-2 show_pass position-relative">
+                                @Html.EditorFor(model => model.matKhauMoi, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập mật khẩu mới" } })
+                                @Html.ValidationMessageFor(model => model.matKhauMoi, "", new { @class = "text-danger" })
+                            </div>
+                            <!--end::Input Form Group-->
+                            <!--begin::Input Form Group-->
+                            <div class="w-100">
+                                <!--begin:label-->
+                                <label class="mb-1 text-muted" for="password">Xác nhận mật khẩu</label>
+                                <!--end:label-->
+                            </div>
+                            <div class="form-group show_pass mb-2 position-relative">
+                                @Html.EditorFor(model => model.xacNhanMatKhau, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nhập xác nhận mật khẩu mới" } })
+                                @Html.ValidationMessageFor(model => model.xacNhanMatKhau, "", new { @class = "text-danger" })
+                                @ViewBag.ThongBao
+                            </div>
+                            <!--end::Input Form Group-->
+                            <!--begin::Action-->
+                            <div class="center mb-4">
+                                <!--begin::Button-->
+                                <button type="submit" class="btn bg-button w-100">Xác nhận</button>
+                                <!--end::Button-->
+                            </div>
+                            <!--end::Action-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Card Body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end::Col-->
+        </div>
+        <!--end::Row-->
+    </div>
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebsiteGamingGear.Models.TinTuc>
+@{
+    ViewBag.Title = "TinTucLienQuan";
+    Layout = null;
+}
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+@foreach (var tintuc in Model)
+{
+    String truncate = Truncate(tintuc.tieuDeTin, 25).ToString();
+    <div class="li-recent-post pb-30">
+            <a href="@Url.Action("ChiTietTinTuc", "NguoiDung", new { id = tintuc.idTinTuc})">
+                <img width="150"
+                     src="~/Content/images/@tintuc.hinhAnh1"
+                      />
+            </a>
+        <div class="li-recent-post-des">
+            <span><a href="@Url.Action("ChiTietTinTuc", "NguoiDung", new { id = tintuc.idTinTuc})">@Html.Raw(truncate)</a></span>
+            <span class="li-post-date">@String.Format("{0:dd/MM/yyyy}", tintuc.ngaySoan)</span>
+        </div>
+    </div>
+}
