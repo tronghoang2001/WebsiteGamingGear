@@ -10,6 +10,8 @@ using GamingGear.Models.Account;
 using GamingGear.Roles;
 using GamingGear.Others;
 using WebsiteGamingGear.Models;
+using System.Web;
+using System.IO;
 
 namespace GamingGear.Controllers
 {
@@ -437,6 +439,62 @@ namespace GamingGear.Controllers
                 ViewBag.ThongBao4 = "Sai mật khẩu cũ !";
             }
             return View();
+        }
+
+        //Sửa thông tin tài khoản
+        //GET
+        public ActionResult SuaThongTin(int id)
+        {
+            var khachhang = db.TaiKhoans.FirstOrDefault(n => n.id == id);
+            return View(khachhang);
+        }
+        //POST
+        [HttpPost]
+        public ActionResult SuaThongTin(int id, FormCollection collection, HttpPostedFileBase fileUpload)
+        {
+            //Tạo 1 biến khachhang với đối tương id = id truyền vào
+            var taikhoan = db.TaiKhoans.First(n => n.id == id);
+            var hoten = collection["hoTenKH"];
+            var sdt = collection["sdtKH"];
+            var email = collection["Email"];
+            var ngaySinh = String.Format("{0:MM/dd/yyyy}",collection["ngaySinh"]);
+            taikhoan.id = id;
+            //Nếu người dùng không nhập đủ thông tin            
+            if (string.IsNullOrEmpty(ngaySinh))
+            {
+                ViewData["Loi4"] = "Chưa nhập ngày sinh!";
+            }
+            //kiem tra duong dan file
+            if (fileUpload == null)
+            {
+                taikhoan.anhDaiDien = taikhoan.anhDaiDien;
+            }
+            else
+            {
+                //luu ten file
+                var fileName = Path.GetFileName(fileUpload.FileName);
+                taikhoan.anhDaiDien = fileName;
+                //luu duong dan cua file
+                var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                //kiem tra hinh anh ton tai chua
+                if (System.IO.File.Exists(path))
+                    ViewBag["Loi5"] = "Hình ảnh đã tồn tại";
+                else
+                {
+                    // luu hinh anh vao duong dan
+                    fileUpload.SaveAs(path);
+                }
+                taikhoan.ten = hoten;
+                taikhoan.soDienThoai = sdt;
+                taikhoan.email = email;
+                taikhoan.ngaySinh = DateTime.Parse(ngaySinh);
+            }
+            //Update trong CSDL
+            //check nhiều validation thì phải cho nó false nếu không sẽ bị lỗi khi chạy đến đây
+            db.Configuration.ValidateOnSaveEnabled = false;
+            TryUpdateModel(taikhoan);
+            db.SaveChanges();
+            return this.SuaThongTin(id);
         }
     }
 }

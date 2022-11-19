@@ -311,6 +311,7 @@
     <Content Include="css\magnific-popup.css" />
     <Content Include="css\material-design-iconic-font.min.css" />
     <Content Include="css\meanmenu.css" />
+    <Content Include="css\myCss\editProfile.css" />
     <Content Include="css\myCss\loginstyle.css" />
     <Content Include="css\myCss\style.css" />
     <Content Include="css\myCss\textCss.css" />
@@ -433,6 +434,7 @@
     <Content Include="Views\NguoiDung\BinhLuanTT.cshtml" />
     <Content Include="Views\NguoiDung\BinhLuanSP.cshtml" />
     <Content Include="Views\Account\DangKy.cshtml" />
+    <Content Include="Views\Account\SuaThongTin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

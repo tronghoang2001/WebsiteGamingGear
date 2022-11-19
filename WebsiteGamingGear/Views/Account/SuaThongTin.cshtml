@@ -1,0 +1,93 @@
+﻿@model WebsiteGamingGear.Models.TaiKhoan
+@{
+    ViewBag.Title = "SuaThongTin";
+    Layout = null;
+}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/css/myCss/editProfile.css" rel="stylesheet">
+<link href="~/css/bootstrap.min.css" rel="stylesheet">
+<div class="container">
+    <div class="view-account">
+        <section class="module">
+            @using (Html.BeginForm("SuaThongTin", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+            <div class="module-inner">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
+                <div class="side-bar">
+                    <div class="user-info">
+                        <img class="img-profile img-circle img-responsive center-block" src="@Url.Content("~/Content/images/" + Model.anhDaiDien)" alt="">
+                        <ul class="meta list list-unstyled">
+                            <li class="name">@Model.ten</li>
+                        </ul>
+                    </div>
+                    <nav class="side-menu">
+                        <ul class="nav">
+                            <li class="active"><a href="#"><span class="fa fa-user"></span> Hồ sơ</a></li>
+                            <li><a href="#"><span class="fa fa-credit-card"></span> Đơn hàng</a></li>
+                            <li><a href="#"><span class="fa fa-envelope"></span> Liên hệ</a></li>
+                            <li><a href="#"><span class="fa fa-cog"></span> Cài đặt</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="content-panel">
+                    <h1 class="title">Hồ sơ</h1>
+                    <form class="form-horizontal">
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">Thông tin tài khoản</h3>
+                            <div class="form-group avatar">
+                                <img class="img-rounded img-responsive" src="@Url.Content("~/Content/images/" + Model.anhDaiDien)" alt="" width="200">                               
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Chọn ảnh mới</label>
+                                <input id="fileInput" type="file" name="fileUpload" style="display:none;">
+                                @ViewBag.Loi5
+                                <input type="button" class="btn btn-primary" value="Đổi ảnh đại diện" onclick="document.getElementById('fileInput').click();">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Họ và tên</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" id="hoTenKH" name="hoTenKH" value="@Model.ten">
+                                    @ViewBag.Loi1
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Ngày sinh</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="date" class="form-control" id="ngaySinh" name="ngaySinh" value="@Model.ngaySinh">
+                                    @ViewBag.Loi4
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset">
+                            <h3 class="fieldset-title">Contact Info</h3>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.email">
+                                    @ViewBag.Loi3
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Số điện thoại</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                    <input type="number" class="form-control" id="sdtKH" name="sdtKH" value="@Model.soDienThoai">
+                                    @ViewBag.Loi2
+                                </div>
+                            </div>
+                        </fieldset>
+                        <hr>
+                        <div class="form-group">
+                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                <input class="btn btn-primary" type="submit" value="Update Profile">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            }
+            </section>
+    </div>
+</div>

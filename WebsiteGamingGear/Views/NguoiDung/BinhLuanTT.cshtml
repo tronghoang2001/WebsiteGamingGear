@@ -6,15 +6,15 @@
 
 @foreach (var tintuc in Model)
 {
-    <li>
-        <div class="comment-body pl-15">
-            <h5 class="comment-author pt-15">@tintuc.tenNguoiBL</h5>
-            <div class="comment-post-date">
-                @String.Format("{0:dd/MM/yyyy}", tintuc.ngayThem)
-            </div>
-            <p>
-                @tintuc.noiDungBL
-            </p>
+<li>
+    <div class="comment-body pl-15">
+        <h5 class="comment-author pt-15">@tintuc.tenNguoiBL</h5>
+        <div class="comment-post-date">
+            @String.Format("{0:dd/MM/yyyy}", tintuc.ngayThem)
         </div>
-    </li>
+        <p>
+            @tintuc.noiDungBL
+        </p>
+    </div>
+</li>
 }

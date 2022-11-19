@@ -260,7 +260,7 @@ namespace GamingGear.Controllers
             return RedirectToAction("ChiTietTinTuc", new { id = id});
         }
         public ActionResult BinhLuanTT(int id)
-        {           
+        {
             //Lay binh luan
             var binhluan = (from tt in db.BinhLuanTinTucs orderby tt.ngayThem descending where tt.idTinTuc == id select tt).Take(5);
             return View(binhluan);
