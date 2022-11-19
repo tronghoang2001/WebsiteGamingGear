@@ -8,7 +8,7 @@ namespace WebsiteGamingGear.Models
     public partial class dbGamingGear : DbContext
     {
         public dbGamingGear()
-            : base("name=dbGamingGear3")
+            : base("name=dbGamingGear")
         {
         }
 
@@ -57,6 +57,10 @@ namespace WebsiteGamingGear.Models
                 .IsFixedLength()
                 .IsUnicode(false);
 
+            modelBuilder.Entity<BinhLuanTinTuc>()
+                .Property(e => e.anhDaiDien)
+                .IsUnicode(false);
+
             modelBuilder.Entity<ChiTietDDH>()
                 .Property(e => e.trangThai)
                 .IsFixedLength()
@@ -78,6 +82,10 @@ namespace WebsiteGamingGear.Models
             modelBuilder.Entity<DanhGia>()
                 .Property(e => e.trangThai)
                 .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DanhGia>()
+                .Property(e => e.anhDaiDien)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DanhMucSP>()

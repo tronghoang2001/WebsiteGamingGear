@@ -28,6 +28,9 @@ namespace WebsiteGamingGear.Models
 
         public DateTime? ngayThem { get; set; }
 
+        [StringLength(200)]
+        public string anhDaiDien { get; set; }
+
         public virtual TaiKhoan TaiKhoan { get; set; }
 
         public virtual TinTuc TinTuc { get; set; }

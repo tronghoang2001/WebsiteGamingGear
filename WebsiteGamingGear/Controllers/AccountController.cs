@@ -484,11 +484,11 @@ namespace GamingGear.Controllers
                     // luu hinh anh vao duong dan
                     fileUpload.SaveAs(path);
                 }
-                taikhoan.ten = hoten;
-                taikhoan.soDienThoai = sdt;
-                taikhoan.email = email;
                 taikhoan.ngaySinh = DateTime.Parse(ngaySinh);
             }
+            taikhoan.ten = hoten;
+            taikhoan.soDienThoai = sdt;
+            taikhoan.email = email;
             //Update trong CSDL
             //check nhiều validation thì phải cho nó false nếu không sẽ bị lỗi khi chạy đến đây
             db.Configuration.ValidateOnSaveEnabled = false;

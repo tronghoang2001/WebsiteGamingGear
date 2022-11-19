@@ -7,6 +7,10 @@
 @foreach (var tintuc in Model)
 {
 <li>
+    <div class="author-avatar pt-15">
+        <img src="~/Content/images/@tintuc.anhDaiDien" width="40"
+             alt="User" />
+    </div>
     <div class="comment-body pl-15">
         <h5 class="comment-author pt-15">@tintuc.tenNguoiBL</h5>
         <div class="comment-post-date">

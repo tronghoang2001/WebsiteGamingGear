@@ -91,7 +91,7 @@ namespace GamingGear.Controllers
             db.SaveChanges();
             return View(sanpham.Single());
         }
-        //San pham lien qua
+        //San pham lien quan
         public ActionResult SanPhamLienQuan(int iddanhmuc, int id)
         {
             var splq = from sp in db.SanPhams where sp.idDanhMuc == iddanhmuc where id != sp.idSanPham select sp;
@@ -250,6 +250,7 @@ namespace GamingGear.Controllers
                 binhluan.noiDungBL = noidungbl;
                 binhluan.trangThai = "1";
                 binhluan.tenNguoiBL = tk.ten;
+                binhluan.anhDaiDien = tk.anhDaiDien;
                 binhluan.ngayThem = DateTime.Now;
                 if (ModelState.IsValid)
                 {
@@ -284,6 +285,7 @@ namespace GamingGear.Controllers
                 binhluan.noiDung = noidungbl;
                 binhluan.trangThai = "1";
                 binhluan.tenNguoiDanhGia = tk.ten;
+                binhluan.anhDaiDien = tk.anhDaiDien;
                 binhluan.ngayThem = DateTime.Now;
                 if (ModelState.IsValid)
                 {
@@ -299,6 +301,12 @@ namespace GamingGear.Controllers
             //Lay binh luan
             var binhluan = (from dg in db.DanhGias orderby dg.ngayThem descending where dg.idSanPham == id select dg).Take(5);
             return View(binhluan);
+        }
+        //Danh sách đơn hàng
+        public ActionResult DSDonHang(int id)
+        {
+            var donhang = from dh in db.DonDatHangs where id == dh.idDDH select dh;
+            return View(donhang);
         }
     }
 }
