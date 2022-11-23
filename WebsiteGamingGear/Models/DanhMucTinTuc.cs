@@ -13,7 +13,6 @@ namespace WebsiteGamingGear.Models
         public DanhMucTinTuc()
         {
             TheLoaiTinTucs = new HashSet<TheLoaiTinTuc>();
-            TheLoaiTinTucs1 = new HashSet<TheLoaiTinTuc>();
             TinTucs = new HashSet<TinTuc>();
         }
 
@@ -41,9 +40,6 @@ namespace WebsiteGamingGear.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TheLoaiTinTuc> TheLoaiTinTucs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TheLoaiTinTuc> TheLoaiTinTucs1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TinTuc> TinTucs { get; set; }

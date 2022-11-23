@@ -8,7 +8,7 @@ namespace WebsiteGamingGear.Models
     public partial class dbGamingGear : DbContext
     {
         public dbGamingGear()
-            : base("name=dbGamingGear")
+            : base("name=dbGamingGear1")
         {
         }
 
@@ -117,13 +117,6 @@ namespace WebsiteGamingGear.Models
             modelBuilder.Entity<DanhMucTinTuc>()
                 .HasMany(e => e.TheLoaiTinTucs)
                 .WithRequired(e => e.DanhMucTinTuc)
-                .HasForeignKey(e => e.idDanhMucTT)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<DanhMucTinTuc>()
-                .HasMany(e => e.TheLoaiTinTucs1)
-                .WithRequired(e => e.DanhMucTinTuc1)
-                .HasForeignKey(e => e.idDanhMucTT)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DiaChiDDH>()
