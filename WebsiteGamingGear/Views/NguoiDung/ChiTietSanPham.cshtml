@@ -138,7 +138,7 @@
                                 <div class="product-desc">
                                     <p>
                                         <span>
-                                            @Model.moTa
+                                            @Html.Raw(HttpUtility.HtmlDecode(Model.moTa))
                                         </span>
                                     </p>
                                 </div>
@@ -251,13 +251,13 @@
                     <div id="description" class="tab-pane active show" role="tabpanel">
                         <div class="product-description">
                             <span>
-                                @Model.moTa
+                                @Html.Raw(HttpUtility.HtmlDecode(Model.moTa))
                             </span>
                         </div>
                     </div>
                     <div id="product-details" class="tab-pane" role="tabpanel">
                         <div class="product-details-manufacturer">
-                            <span>@Model.moTaChiTiet</span>
+                            <span>@Html.Raw(HttpUtility.HtmlDecode(Model.moTaChiTiet))</span>
                         </div>
                     </div>
                     <div id="reviews" class="tab-pane" role="tabpanel">
@@ -288,7 +288,7 @@
                                                                 </p>
                                                                 <p>
                                                                     <span>
-                                                                        @Model.moTa
+                                                                        @Html.Raw(HttpUtility.HtmlDecode(Model.moTa))
                                                                     </span>
                                                                 </p>
                                                             </div>

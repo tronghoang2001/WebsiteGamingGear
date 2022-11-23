@@ -78,6 +78,94 @@ namespace WebsiteGamingGear.Controllers
                 }
             }
         }
+        //XÓA SẢN PHẨM
+        [HttpGet]
+        public ActionResult XoaSanPham(int id)
+        {
+            SanPham sanPham = db.SanPhams.SingleOrDefault(n => n.idSanPham == id);
+            ViewBag.idSanPham = sanPham.idSanPham;
+            if (sanPham == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(sanPham);
+
+        }
+        [HttpPost, ActionName("Xoasanpham")]
+        public ActionResult XacNhanXoa(int id)
+        {
+            //LẤY RA ĐỐI TƯỢNG SẢN PHẨM THEO MÃ
+            SanPham sanPham = db.SanPhams.SingleOrDefault(n => n.idSanPham == id);
+            ViewBag.idSanPham = sanPham.idSanPham;
+            if (sanPham == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            db.SanPhams.Remove(sanPham);
+            db.SaveChanges();
+            return RedirectToAction("SanPham");
+        }
+
+        //CHỈNH SỬA SẢN PHẨM
+        [HttpGet]
+        public ActionResult SuaSanPham(int id)
+        {
+            //LẤY RA ĐỐI TƯỢNG SẢN PHẨM THEO MÃ
+            SanPham sanPham = db.SanPhams.SingleOrDefault(n => n.idSanPham == id);
+            if (sanPham == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucSPs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucSP", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiSPs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiSP", "tenTheLoai");
+            ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
+            return View(sanPham);
+        }
+
+
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SuaSanPham(int id, FormCollection collection, HttpPostedFileBase fileUpload)
+        {
+            var sanpham = db.SanPhams.FirstOrDefault(n => n.idSanPham == id);
+            sanpham.idSanPham = id;
+            //Dua du lieu vao dropdownlist
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucSPs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucSP", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiSPs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiSP", "tenTheLoai");
+            ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
+            //kiem tra duong dan file
+            if (fileUpload == null)
+            {
+                sanpham.hinhAnh = sanpham.hinhAnh;
+            }
+            //Them vao CSDL
+            else
+            {
+                //luu ten file
+                var fileName = Path.GetFileName(fileUpload.FileName);
+                //luu duong dan cua file
+                var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                //kiem tra hinh anh ton tai chua
+                if (System.IO.File.Exists(path))
+                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                else
+                {
+                    // luu hinh anh vao duong dan
+                    fileUpload.SaveAs(path);
+                }
+                sanpham.hinhAnh = fileName;
+            }
+            sanpham.idSanPham = id;
+            //luu vao CSDL
+            db.Configuration.ValidateOnSaveEnabled = false;
+            UpdateModel(sanpham);
+            db.SaveChanges();
+            return this.SuaSanPham(id);
+        }
         //Thêm Danh mục
         public ActionResult ThemDanhMuc(DanhMucSP danhMuc)
         {
@@ -89,7 +177,7 @@ namespace WebsiteGamingGear.Controllers
             db.SaveChanges();       
             return RedirectToAction("ThemSanPham");
         }
-        //THÊM MỚI LOẠI SẢN PHẨM
+        //THÊM MỚI THỂ LOẠI SẢN PHẨM
         [HttpGet]
         public ActionResult ThemTheLoai()
         {
@@ -106,6 +194,18 @@ namespace WebsiteGamingGear.Controllers
             ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
             //luu vao CSDL
             db.TheLoaiSPs.Add(theLoai);
+            db.SaveChanges();
+            return RedirectToAction("ThemSanPham");
+        }
+
+        //Thêm Thương hiệu
+        public ActionResult ThemThuongHieu(ThuongHieu thuongHieu)
+        {
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucSPs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucSP", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiSPs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiSP", "tenTheLoai");
+            ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
+            //luu vao CSDL
+            db.ThuongHieux.Add(thuongHieu);
             db.SaveChanges();
             return RedirectToAction("ThemSanPham");
         }

@@ -1,0 +1,107 @@
+﻿@model WebsiteGamingGear.Models.SanPham
+@{
+    ViewBag.Title = "SuaSanPham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("SanPham","Admin")">Danh sách sản phẩm</a></li>
+            <li class="breadcrumb-item">Sửa sản phẩm</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Sửa thông tin sản phẩm</h3>
+                <div class="tile-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.idSanPham)
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Tên sản phẩm</label>
+                                <input class="form-control" name="tenSanPham" type="text" value="@Model.tenSanPham">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Giá bán</label>
+                                <input class="form-control" name="gia" type="number" value="@Model.gia">
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <label class="control-label">Số lượng</label>
+                                <input class="form-control" name="soLuong" type="number" value="@Model.soLuong">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <b>Chọn ảnh mới:</b> <input type="file" name="fileUpload" /> <img src="@Url.Content("~/Content/images/"+ Model.hinhAnh)" width="100" />(Ảnh hiện tại)
+                                    @*Thong bao trung*@
+                                    @ViewBag.Thongbao
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="exampleSelect1" class="control-label">Danh mục</label>
+                                @Html.DropDownListFor(model => model.idDanhMuc, (SelectList)ViewBag.idDanhMuc, "-- Chọn danh mục --", new { @class = "form-select form-select-solid" })
+                            </div>
+                            <div class="form-group col-md-3 ">
+                                <label for="exampleSelect1" class="control-label">Thể loại</label>
+                                @Html.DropDownListFor(model => model.idTheLoaiSP, (SelectList)ViewBag.idTheLoai, "-- Chọn thể loại --", new { @class = "form-select form-select-solid" })
+                            </div>
+                            <div class="form-group col-md-3 ">
+                                <label for="exampleSelect1" class="control-label">Thương hiệu</label>
+                                @Html.DropDownListFor(model => model.idThuongHieu, (SelectList)ViewBag.idThuongHieu, "-- Chọn thương hiệu --", new { @class = "form-select form-select-solid" })
+                            </div>
+                            <div>
+                                <label class="control-label">Mô tả</label>
+                                <textarea class="form-control" name="moTa">@Model.moTa</textarea>
+                            </div>
+                            <div>
+                                <label class="control-label">Mô tả chi tiết</label>
+                                <textarea class="form-control" name="moTaChiTiet">@Model.moTaChiTiet</textarea>
+                            </div>
+                            <div class="form-group col-md-3" style="padding-top:15px">
+                                <button class="btn btn-save" type="submit">Cập nhật</button>
+                                <a class="btn btn-cancel" href="@Url.Action("SanPham","Admin")">Hủy bỏ</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+</script>
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/admin.js"></script>
+<script src="~/js/plugins/pace.min.js"></script>
+<script>
+    const inpFile = document.getElementById("inpFile");
+    const loadFile = document.getElementById("loadFile");
+    const previewContainer = document.getElementById("imagePreview");
+    const previewContainer = document.getElementById("imagePreview");
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+    inpFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            previewDefaultText.style.display = "none";
+            previewImage.style.display = "block";
+            reader.addEventListener("load", function () {
+                previewImage.setAttribute("src", this.result);
+            });
+            reader.readAsDataURL(file);
+        }
+    });</script>

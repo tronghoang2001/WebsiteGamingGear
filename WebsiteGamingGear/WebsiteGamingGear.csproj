@@ -575,6 +575,9 @@
     <Content Include="Scripts\tinymce\langs\README.md" />
     <Content Include="Views\Admin\ThemSanPham.cshtml" />
     <Content Include="Views\Admin\ThemTheLoai.cshtml" />
+    <Content Include="Views\Admin\XoaSanPham.cshtml" />
+    <Content Include="Views\Admin\SuaSanPham.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
