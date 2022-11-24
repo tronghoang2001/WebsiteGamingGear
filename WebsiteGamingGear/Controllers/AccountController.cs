@@ -168,6 +168,7 @@ namespace GamingGear.Controllers
                 tk.anhDaiDien = "/Images/svg/avatars/001-boy.svg";
                 tk.ngaySinh = dangKy.ngaySinh;
                 tk.soDienThoai = dangKy.soDienThoai;
+                tk.diaChi = dangKy.diaChi;
                 //tạo chuỗi code kích hoạt tài khoản
                 tk.trangThai = "0";
                 dangKy.Requestcode = Guid.NewGuid().ToString();

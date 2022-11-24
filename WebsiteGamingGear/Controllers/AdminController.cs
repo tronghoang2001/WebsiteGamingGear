@@ -112,16 +112,16 @@ namespace WebsiteGamingGear.Controllers
         [HttpGet]
         public ActionResult SuaSanPham(int id)
         {
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucSPs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucSP", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiSPs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiSP", "tenTheLoai");
+            ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
             //LẤY RA ĐỐI TƯỢNG SẢN PHẨM THEO MÃ
             SanPham sanPham = db.SanPhams.SingleOrDefault(n => n.idSanPham == id);
             if (sanPham == null)
             {
                 Response.StatusCode = 404;
                 return null;
-            }
-            ViewBag.idDanhMuc = new SelectList(db.DanhMucSPs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucSP", "tenDanhMuc");
-            ViewBag.idTheLoai = new SelectList(db.TheLoaiSPs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiSP", "tenTheLoai");
-            ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
+            }          
             return View(sanPham);
         }
 
@@ -129,14 +129,14 @@ namespace WebsiteGamingGear.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult SuaSanPham(int id, FormCollection collection, HttpPostedFileBase fileUpload)
+        public ActionResult SuaSanPham(int id, HttpPostedFileBase fileUpload)
         {
-            var sanpham = db.SanPhams.FirstOrDefault(n => n.idSanPham == id);
-            sanpham.idSanPham = id;
             //Dua du lieu vao dropdownlist
             ViewBag.idDanhMuc = new SelectList(db.DanhMucSPs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucSP", "tenDanhMuc");
             ViewBag.idTheLoai = new SelectList(db.TheLoaiSPs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiSP", "tenTheLoai");
             ViewBag.idThuongHieu = new SelectList(db.ThuongHieux.ToList().OrderBy(n => n.tenThuongHieu), "idThuongHieu", "tenThuongHieu");
+            var sanpham = db.SanPhams.FirstOrDefault(n => n.idSanPham == id);
+            sanpham.idSanPham = id;           
             //kiem tra duong dan file
             if (fileUpload == null)
             {
@@ -208,6 +208,176 @@ namespace WebsiteGamingGear.Controllers
             db.ThuongHieux.Add(thuongHieu);
             db.SaveChanges();
             return RedirectToAction("ThemSanPham");
+        }
+
+        //Tin tuc
+        public ActionResult TinTuc(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.TinTucs.ToList().OrderBy(n => n.idTinTuc).ToPagedList(pageNumber, pageSize));
+        }
+        //THÊM MOI TIN TUC
+        [HttpGet]
+        public ActionResult ThemTinTuc()
+        {
+
+            //dua du lieu vao dropdownlist
+            //lay ds tu table danh muc, sap xep tang dan theo ten danh muc, chon lay gia tri ma DM, hien thi ten DM
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult ThemTinTuc(TinTuc tinTuc, HttpPostedFileBase fileUpload)
+        {
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+
+            if (fileUpload == null)
+            {
+                ViewBag.Thongbao = "Vui lòng chọn ảnh ";
+                return View();
+            }
+            else
+            {
+
+                var fileName = Path.GetFileName(fileUpload.FileName);
+                //luu duong dan cua file
+                var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                //kiem tra hinh anh ton tai chua
+                if (System.IO.File.Exists(path))
+                {
+                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    return View();
+                }
+                else
+                {
+                    // luu hinh anh vao duong dan
+                    fileUpload.SaveAs(path);
+                    tinTuc.hinhAnh1 = fileName;
+                    //luu vao CSDL
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.TinTucs.Add(tinTuc);
+                    db.SaveChanges();
+                    return RedirectToAction("TinTuc");
+                }
+            }
+        }
+        //XÓA SẢN PHẨM
+        [HttpGet]
+        public ActionResult XoaTinTuc(int id)
+        {
+            TinTuc tinTuc = db.TinTucs.SingleOrDefault(n => n.idTinTuc == id);
+            ViewBag.idTinTuc = tinTuc.idTinTuc;
+            if (tinTuc == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(tinTuc);
+
+        }
+        [HttpPost, ActionName("XoaTinTuc")]
+        public ActionResult XacNhanXoaTT(int id)
+        {
+            //LẤY RA ĐỐI TƯỢNG TIN TUC THEO MÃ
+            TinTuc tinTuc = db.TinTucs.SingleOrDefault(n => n.idTinTuc == id);
+            ViewBag.idTinTuc = tinTuc.idTinTuc;
+            if (tinTuc == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            db.TinTucs.Remove(tinTuc);
+            db.SaveChanges();
+            return RedirectToAction("TinTuc");
+        }
+
+        //CHỈNH SỬA TIN TUC
+        [HttpGet]
+        public ActionResult SuaTinTuc(int id)
+        {
+            //LẤY RA ĐỐI TƯỢNG TIN TUC THEO MÃ
+            var tinTuc = db.TinTucs.FirstOrDefault(n => n.idTinTuc == id);
+            if (tinTuc == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+            return View(tinTuc);
+        }
+
+
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SuaTinTuc(int id, HttpPostedFileBase fileUpload)
+        {           
+            //Dua du lieu vao dropdownlist
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+            var tintuc = db.TinTucs.FirstOrDefault(n => n.idTinTuc == id);
+            tintuc.idTinTuc = id;
+            //Nếu người dùng không nhập đủ thông tin            
+            //kiem tra duong dan file
+            if (fileUpload == null)
+            {
+                tintuc.hinhAnh1 = tintuc.hinhAnh1;
+            }
+            else
+            {
+                //luu ten file
+                var fileName = Path.GetFileName(fileUpload.FileName);
+                tintuc.hinhAnh1 = fileName;
+                //luu duong dan cua file
+                var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                //kiem tra hinh anh ton tai chua
+                if (System.IO.File.Exists(path))
+                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                else
+                {
+                    // luu hinh anh vao duong dan
+                    fileUpload.SaveAs(path);
+                }
+            }
+            //Update trong CSDL
+            //check nhiều validation thì phải cho nó false nếu không sẽ bị lỗi khi chạy đến đây
+            db.Configuration.ValidateOnSaveEnabled = false;
+            TryUpdateModel(tintuc);
+            db.SaveChanges();
+            return this.SuaTinTuc(id);
+        }
+        //Thêm Danh mục
+        public ActionResult ThemDanhMucTT(DanhMucTinTuc danhMuc)
+        {
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+            //luu vao CSDL
+            db.DanhMucTinTucs.Add(danhMuc);
+            db.SaveChanges();
+            return RedirectToAction("ThemTinTuc");
+        }
+        //THÊM MỚI THỂ LOẠI SẢN PHẨM
+        [HttpGet]
+        public ActionResult ThemTheLoaiTT()
+        {
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemTheLoaiTT(TheLoaiTinTuc theLoai)
+        {
+            ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
+            ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
+            //luu vao CSDL
+            db.TheLoaiTinTucs.Add(theLoai);
+            db.SaveChanges();
+            return RedirectToAction("ThemTinTuc");
         }
     }
 }

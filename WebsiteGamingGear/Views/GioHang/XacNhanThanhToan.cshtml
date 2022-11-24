@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "XacNhanThanhToan";
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/myCss/textCss.css" />
+@Html.Partial("Header")
+<body style="text-align: center">
+    @Html.Partial("MenuTop")
+    <h1 style="font-style: italic">
+        @ViewBag.Message
+    </h1>
+    <a class="btn btn-default" href="@Url.Action("TrangChu","NguoiDung")">
+        Trở về
+    </a>
+    @Html.Partial("Footer")
+</body>

@@ -8,7 +8,7 @@ namespace WebsiteGamingGear.Models
     public partial class dbGamingGear : DbContext
     {
         public dbGamingGear()
-            : base("name=dbGamingGear1")
+            : base("name=dbGamingGear")
         {
         }
 

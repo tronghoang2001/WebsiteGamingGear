@@ -176,9 +176,12 @@
     <Compile Include="Models\Tinh_ThanhPho.cs" />
     <Compile Include="Models\TinTuc.cs" />
     <Compile Include="Others\Authentication.cs" />
+    <Compile Include="Others\ChuyenDoi.cs" />
     <Compile Include="Others\LuuThongTinDangNhap.cs" />
     <Compile Include="Others\Notification.cs" />
     <Compile Include="Others\NotificationModel.cs" />
+    <Compile Include="Others\SoSanh.cs" />
+    <Compile Include="Others\XuLy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\RoleNumber.cs" />
     <Compile Include="Roles\SendEmail.cs" />
@@ -578,6 +581,12 @@
     <Content Include="Views\Admin\XoaSanPham.cshtml" />
     <Content Include="Views\Admin\SuaSanPham.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\TinTuc.cshtml" />
+    <Content Include="Views\Admin\ThemTinTuc.cshtml" />
+    <Content Include="Views\Admin\XoaTinTuc.cshtml" />
+    <Content Include="Views\Admin\ThemTheLoaiTT.cshtml" />
+    <Content Include="Views\Admin\SuaTinTuc.cshtml" />
+    <Content Include="Views\GioHang\XacNhanThanhToan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

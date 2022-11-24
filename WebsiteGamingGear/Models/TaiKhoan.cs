@@ -60,6 +60,9 @@ namespace WebsiteGamingGear.Models
 
         public int? quyen { get; set; }
 
+        [StringLength(200)]
+        public string diaChi { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuanTinTuc> BinhLuanTinTucs { get; set; }
 

@@ -9,12 +9,7 @@ namespace GamingGear.Models.Account
 {
     public class DangKy
     {
-        [Required(ErrorMessage = "Chọn Tỉnh/Thành Phố")]
-        public int idTinhThanh { get; set; }
-        [Required(ErrorMessage = "Quận/Huyện")]
-        public int idQuanHuyen { get; set; }
-        [Required(ErrorMessage = "Chọn Phường xã")]
-        public int idPhuongXa { get; set; }
+        public string diaChi { get; set; }
 
         public int idTaiKhoan { get; set; }
         //Tai khoan
