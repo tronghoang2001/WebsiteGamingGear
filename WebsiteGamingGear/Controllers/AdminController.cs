@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,16 @@ namespace WebsiteGamingGear.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult TrangChu(int? page)
+        {
+            ViewBag.TongDonHang = db.DonDatHangs.Select(a => a.idDDH).Count();
+            ViewBag.TongDoanhThu = db.DonDatHangs.Select(a => a.tongTien).Sum();
+            ViewBag.LuotMua = db.SanPhams.Select(a => a.luotMua).Sum();
+            ViewBag.LuotXem = db.SanPhams.Select(a => a.luotXem).Sum();
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.DonDatHangs.ToList().OrderBy(n => n.idDDH).ToPagedList(pageNumber, pageSize));
         }
 
         //San Pham
@@ -378,6 +389,51 @@ namespace WebsiteGamingGear.Controllers
             db.TheLoaiTinTucs.Add(theLoai);
             db.SaveChanges();
             return RedirectToAction("ThemTinTuc");
+        }
+
+        //Chuyển trạng thái chờ 
+        public ActionResult TrangThaiCho(int id)
+        {       
+                    var donhang = db.DonDatHangs.SingleOrDefault(n => n.idDDH == id);
+                    if (donhang != null && donhang.trangThai != "3")
+                    {
+                        donhang.trangThai = "1";
+                        db.Entry(donhang).State = EntityState.Modified;
+                        db.SaveChanges();
+                        ViewBag.Thongbao = ("Đã chuyển trạng thái đơn hàng: " + "HQ" + id + " sang chờ xử lý!", "success");
+                    }
+                    else
+                    {
+                        ViewBag.Thongbao1 = ("Đơn hàng: " + "#" + id + " đã được hoàn thành, không thể thay đổi trạng thái khác!", "warning");
+                    }
+                    return RedirectToAction("TrangChu");          
+        }
+        //Chuyển trạng thái sang đang xử lý (đang được giao)
+        public ActionResult TrangThaiDangGiao(int id)
+        {
+                    var donhang = db.DonDatHangs.SingleOrDefault(n => n.idDDH == id);
+                    if (donhang != null)
+                    {
+                        donhang.trangThai = "2";
+                        db.Entry(donhang).State = EntityState.Modified;
+                    }                 
+                    db.SaveChanges();
+                    ViewBag.Thongbao = ("Đã chuyển trạng thái đơn hàng: " + "#" + id + " sang đang xử lý!", "success");
+                    return RedirectToAction("TrangChu");
+
+        }
+        //Chuyển trạng thái đơn hàng sang hoàn thành
+        public ActionResult TrangThaiHoanThanh(int id)
+        {           
+                    var donhang = db.DonDatHangs.SingleOrDefault(n => n.idDDH == id);
+                    if (donhang != null)
+                    {
+                        donhang.trangThai = "3";
+                        db.Entry(donhang).State = EntityState.Modified;
+                    }                  
+                    db.SaveChanges();
+                    ViewBag.Thongbao = ("Đã chuyển trạng thái đơn hàng: " + id + " sang Hoàn thành!", "success");
+                    return RedirectToAction("TrangChu");
         }
     }
 }

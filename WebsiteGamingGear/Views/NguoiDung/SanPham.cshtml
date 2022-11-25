@@ -85,13 +85,18 @@
                         <!--left sidebar start-->
                         <div class="col-lg-3 order-lg-1 order-2">
                             <div class="li-blog-sidebar-wrapper">
-
                                 <div class="li-blog-sidebar pt-25">
                                     <h4 class="li-blog-sidebar-title">Danh mục</h4>
                                     <ul class="li-blog-archive">
                                         @Html.Action("DanhMuc", "NguoiDung")
                                     </ul>
-                                </div>                             
+                                </div>    
+                                <div class="li-blog-sidebar">
+                                    <h4 class="li-blog-sidebar-title">Thương hiệu</h4>
+                                    <ul class="li-blog-archive">
+                                        @Html.Action("ThuongHieu", "NguoiDung")
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <!--left sidebar end-->
@@ -201,7 +206,7 @@
                                                                     <span class="new-price">@String.Format("{0:0,0}", sanpham.gia) VNĐ</span>
                                                                 </div>
                                                                 <p>
-                                                                    @sanpham.moTa
+                                                                    @Html.Raw(HttpUtility.HtmlDecode(sanpham.moTa))
                                                                 </p>
                                                             </div>
                                                         </div>

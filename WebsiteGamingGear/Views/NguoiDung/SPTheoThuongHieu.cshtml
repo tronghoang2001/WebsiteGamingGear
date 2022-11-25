@@ -35,6 +35,14 @@
             </div>
         </div>
         <!-- Li's Breadcrumb Area End Here -->
+        <!-- Begin Header Middle Searchbox Area -->
+        <form asp-controller="NguoiDung" asp-action="SPTheoThuongHieu" class="hm-searchbox" style="margin-left: 440px;">
+            <input type="text" name="searchString" placeholder="Tìm kiếm sản phẩm ..." />
+            <button class="li-btn" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        <!-- Header Middle Searchbox Area End Here -->
         <!-- Begin Li's Content Wraper Area -->
         <div class="content-wraper pt-60 pb-60">
             <div class="container">
@@ -75,22 +83,27 @@
                                     <!-- shop-item-filter-list end -->
                                 </div>
                             </div>
-                            <!-- product-select-box start -->
-                            <div class="dropdown">
-                                <a href="#down" class="decoration"><h6>Thương hiệu</h6></a>
-                                <div class="dropdown-content">
-                                    @Html.Action("ThuongHieu", "NguoiDung")
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <a href="#down" class="decoration"><h6>Danh mục sản phẩm</h6></a>
-                                <div class="dropdown-content">
-                                    @Html.Action("DanhMuc", "NguoiDung")
-                                </div>
-                            </div>
                             <!-- product-select-box end -->
                         </div>
                         <!-- shop-top-bar end -->
+                        <!--left sidebar start-->
+                        <div class="col-lg-3 order-lg-1 order-2">
+                            <div class="li-blog-sidebar-wrapper">
+                                <div class="li-blog-sidebar pt-25">
+                                    <h4 class="li-blog-sidebar-title">Danh mục</h4>
+                                    <ul class="li-blog-archive">
+                                        @Html.Action("DanhMuc", "NguoiDung")
+                                    </ul>
+                                </div>
+                                <div class="li-blog-sidebar">
+                                    <h4 class="li-blog-sidebar-title">Thương hiệu</h4>
+                                    <ul class="li-blog-archive">
+                                        @Html.Action("ThuongHieu", "NguoiDung")
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--left sidebar end-->
                         <!-- shop-products-wrapper start -->
                         <div class="shop-products-wrapper">
                             <div class="tab-content">

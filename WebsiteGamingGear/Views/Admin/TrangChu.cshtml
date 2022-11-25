@@ -1,0 +1,225 @@
+﻿@using WebsiteGamingGear.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<WebsiteGamingGear.Models.DonDatHang>
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<aside class="app-sidebar">
+    <div class="app-sidebar__user">
+        <img class="app-sidebar__user-avatar"
+             src="/images/hay.jpg"
+             width="50"
+             alt="User Image" />
+        <div>
+            <p class="app-sidebar__user-name"><b>Admin</b></p>
+            <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+        </div>
+    </div>
+    <hr />
+    <ul class="app-menu">
+        <li>
+            <a class="app-menu__item active" href="@Url.Action("TrangChu","Admin")">
+                <i class="app-menu__icon bx bx-tachometer"></i><span class="app-menu__label">Bảng điều khiển</span>
+            </a>
+        </li>
+        <!-- <li>
+          <a class="app-menu__item" href="#"
+            ><i class="app-menu__icon bx bx-user-voice"></i
+            ><span class="app-menu__label">Quản lý khách hàng</span></a
+          >
+        </li> -->
+        <li>
+            <a class="app-menu__item" href="@Url.Action("SanPham","Admin")">
+                <i class="app-menu__icon bx bx-purchase-tag-alt"></i><span class="app-menu__label">Quản lý sản phẩm</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="#">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đơn hàng</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
+                <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
+            </a>
+        </li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="app-title">
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#"><b>Bảng điều khiển</b></a>
+                    </li>
+                </ul>
+                <div id="clock"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <!-- col-6 -->
+        <div class="col-md-6">
+            <div class="widget-small primary coloured-icon">
+                <i class="icon bx bx-bar-chart-alt-2"></i>
+                <div class="info">
+                    <h4>Tổng Doanh Thu</h4>
+                    <p><b>@String.Format("{0:0,0}", ViewBag.TongDoanhThu) VNĐ</b></p>
+                    <p class="info-tong">Tổng số tiền thu được.</p>
+                </div>
+            </div>
+        </div>
+        <!-- col-6 -->
+        <div class="col-md-6">
+            <div class="widget-small warning coloured-icon">
+                <i class="icon bx bxs-shopping-bags fa-3x"></i>
+                <div class="info">
+                    <h4>Tổng Đơn Hàng</h4>
+                    <p><b>@ViewBag.TongDonHang đơn hàng</b></p>
+                    <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng.</p>
+                </div>
+            </div>
+        </div>
+        <!-- col-6 -->
+        <div class="col-md-6">
+            <div class="widget-small warning coloured-icon">
+                <i class="icon bx bx-up-arrow-alt"></i>
+                <div class="info">
+                    <h4>Lượt Xem Sản Phẩm</h4>
+                    <p><b>@ViewBag.LuotXem lượt xem</b></p>
+                    <p class="info-tong">Tổng số lượt xem của sản phẩm.</p>
+                </div>
+            </div>
+        </div>
+        <!-- col-6 -->
+        <div class="col-md-6">
+            <div class="widget-small danger coloured-icon">
+                <i class="icon bx bx-cart-add"></i>
+                <div class="info">
+                    <h4>Lượt Mua Sản Phẩm</h4>
+                    <p><b>@ViewBag.LuotMua lượt mua</b></p>
+                    <p class="info-tong">
+                        Tổng số lượt mua của sản phẩm.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- col-12 -->
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Tình trạng đơn hàng</h3>
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID đơn hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Trạng thái thanh toán</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.idDDH</td>
+                                    <td>@item.TaiKhoan.ten</td>
+                                    <td>@String.Format("{0:0,0}", item.tongTien) đ</td>
+                                    <td>
+                                        <button class="StatusOrder btn p-0" data-status="@item.trangThai" data-id="@item.idDDH" data-toggle="modal"
+                                                data-target="#modal-secondary">
+                                            @if (item.trangThai == "1")
+                                            {
+                                                <button type="button" class="btn btn-warning btn-sm px-3">
+                                                    <span class="indicator-label">
+                                                        Chờ xử lý
+                                                    </span>
+                                                </button>
+                                                <button id="buttonwaiting" type="button" onclick="location.href='@Url.Action("TrangThaiDangGiao", "Admin", new { id = item.idDDH })'" class="btn btn-secondary btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Đang giao
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" onclick="location.href='@Url.Action("TrangThaiHoanThanh", "Admin", new { id = item.idDDH })'" class="btn btn-secondary btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Hoàn thành
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            }
+                                            else if (item.trangThai == "2")
+                                            {
+                                                <button type="button" id="buttonwaiting" onclick="location.href='@Url.Action("TrangThaiCho", "Admin", new { id = item.idDDH })'" class="btn btn-secondary btnloader btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Chờ xử lý
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-info btn-sm px-3">
+                                                    Đang giao
+                                                </button>
+                                                <button type="button" id="buttonwaiting" onclick="location.href='@Url.Action("TrangThaiHoanThanh", "Admin", new { id = item.idDDH })'" class="btn btn-secondary btnloader btn-sm px-3">
+                                                    <span class="indicator-label">
+                                                        Hoàn thành
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-success btn-sm px-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Hoàn thành">Hoàn thành</button>
+                                            }
+                                        </button>
+                                    </td>
+                                    @if(item.trangThaiThanhToan == "1") 
+                                    { 
+                                        <td>
+                                            <span class="badge bg-danger">Chờ thanh toán</span>
+                                        </td>                                     
+                                    }
+                                    else { 
+                                        <td>
+                                            <span class="badge bg-success">Đã thanh toán</span>
+                                        </td>                                          
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @*Tạo liên kết các trang*@
+                    <div class="MenuTrang">
+                        @Html.PagedListPager(Model, page => Url.Action("TrangChu", new { page = page }))
+                    </div>
+                    <style>
+                        .MenuTrang li {
+                            display: inline;
+                        }
+                    </style>
+                </div>
+                <!-- / div trống-->
+            </div>
+        </div>
+        <!-- / col-12 -->
+        <!-- col-12 -->
+    </div>
+
+    <div class="text-center" style="font-size: 13px">
+        <p>
+            <b>
+                Copyright
+                <script type="text/javascript">document.write(new Date().getFullYear());</script>
+                Website Gaming Gear | HQ Team
+            </b>
+        </p>
+    </div>
+</main>

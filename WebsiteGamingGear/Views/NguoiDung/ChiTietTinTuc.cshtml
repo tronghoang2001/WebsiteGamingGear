@@ -2,12 +2,11 @@
 
 @{
     ViewBag.Title = "ChiTietTinTuc";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <!-- blog-details-left-sidebar31:56-->
-@Html.Partial("Header")
 <body>
     <!--[if lt IE 8]>
       <p class="browserupgrade">
@@ -19,7 +18,6 @@
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
-        @Html.Partial("MenuTop")
         <!-- Header Area End Here -->
         <!-- Begin Li's Breadcrumb Area -->
         <div class="breadcrumb-area">
@@ -127,11 +125,9 @@
         </div>
         <!-- Li's Main Blog Page Area End Here -->
         <!-- Begin Footer Area -->
-        @Html.Partial("Footer")
         <!-- Footer Area End Here -->
     </div>
     <!-- Body Wrapper End Here -->
-    @Html.Partial("JS")
 </body>
 
 <!-- blog-details-left-sidebar32:00-->

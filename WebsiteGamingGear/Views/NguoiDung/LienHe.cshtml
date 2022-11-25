@@ -1,18 +1,15 @@
 ﻿@using WebsiteGamingGear.Models
 @{ 
     ViewBag.Title = "LienHe";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <!-- contact32:04-->
-@Html.Partial("Header")
 <body>
-    
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
-        @Html.Partial("MenuTop")
         <!-- Header Area End Here -->
         <!-- Begin Li's Breadcrumb Area -->
         <div class="breadcrumb-area">
@@ -110,13 +107,10 @@
         </div>
         <!-- Contact Main Page Area End Here -->
         <!-- Begin Footer Area -->
-        @Html.Partial("Footer")
         <!-- Footer Area End Here -->
     </div>
     <!-- Body Wrapper End Here -->
-    
 </body>
-
 <!-- contact32:04-->
 </html>
 

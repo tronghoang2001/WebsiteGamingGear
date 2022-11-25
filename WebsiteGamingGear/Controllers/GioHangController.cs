@@ -174,6 +174,8 @@ namespace WebsiteGamingGear.Controllers
             ddh.diaChiNguoiNhan = diachinguoinhan;
             ddh.sdtNguoiNhan = sđtnguoinhan;
             ddh.ghiChu = ghichudonhang;
+            ddh.trangThai = "1";
+            ddh.trangThaiThanhToan = "1";
             ddh.tongTien = TongTien();
             data.DonDatHangs.Add(ddh);
             data.SaveChanges();
@@ -251,6 +253,9 @@ namespace WebsiteGamingGear.Controllers
         }
         public ActionResult XacNhanThanhToan()
         {
+            DonDatHang ddh = new DonDatHang();
+            TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
+            List<GioHang> gh = LayGioHang();
             if (Request.QueryString.Count > 0)
             {
                 string hashSecret = ConfigurationManager.AppSettings["HashSecret"]; //Chuỗi bí mật
@@ -284,19 +289,41 @@ namespace WebsiteGamingGear.Controllers
                     {
                         //Thanh toán thành công
                         ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
+                        ddh.trangThaiThanhToan = "2";
                     }
                     else
                     {
                         //Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
+                        ddh.trangThaiThanhToan = "1";
                     }
+                    ddh.idTaiKhoan = tk.id;
+                    ddh.tenNguoiDat = tk.ten;
+                    ddh.ngayDat = DateTime.Now;
+                    ddh.tenNguoiNhan = tk.ten;
+                    ddh.diaChiNguoiNhan = tk.diaChi;
+                    ddh.sdtNguoiNhan = tk.soDienThoai;
+                    ddh.trangThai = "1";
+                    ddh.tongTien = TongTien();
+                    data.DonDatHangs.Add(ddh);
+                    data.SaveChanges();
+                    //thêm chi tiết đơn hàng
+                    foreach (var item in gh)
+                    {
+                        ChiTietDDH ct = new ChiTietDDH();
+                        ct.idDDH = ddh.idDDH;
+                        ct.idSanPham = item.iIdSanPham;
+                        ct.soLuong = item.iSoLuong;
+                        ct.gia = item.iDonGia;
+                        data.ChiTietDDHs.Add(ct);
+                    }
+                    data.SaveChanges();
                 }
                 else
                 {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
                 }
             }
-
             return View();
         }
     }
