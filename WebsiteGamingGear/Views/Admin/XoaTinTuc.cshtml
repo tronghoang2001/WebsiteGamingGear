@@ -20,21 +20,34 @@
                 <i class="app-menu__icon bx bx-tachometer"></i><span class="app-menu__label">Bảng điều khiển</span>
             </a>
         </li>
-        <!-- <li><a class="app-menu__item " href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
-            class="app-menu__label">Quản lý khách hàng</span></a></li> -->
         <li>
             <a class="app-menu__item" href="@Url.Action("SanPham","Admin")">
                 <i class="app-menu__icon bx bx-purchase-tag-alt"></i><span class="app-menu__label">Quản lý sản phẩm</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="#">
-                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đơn hàng</span>
+            <a class="app-menu__item" href="@Url.Action("LienHe","Admin")">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý liên hệ</span>
             </a>
         </li>
         <li>
             <a class="app-menu__item active" href="@Url.Action("TinTuc","Admin")">
                 <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("BinhLuanTinTuc","Admin")">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý bình luận</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("BinhLuanSanPham","Admin")">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đánh giá</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("TaiKhoan","Admin")">
+                <i class="app-menu__icon bx bx-user"></i><span class="app-menu__label">Quản lý tài khoản</span>
             </a>
         </li>
     </ul>

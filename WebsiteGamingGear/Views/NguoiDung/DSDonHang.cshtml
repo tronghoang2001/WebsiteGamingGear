@@ -1,0 +1,69 @@
+﻿@using WebsiteGamingGear.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<WebsiteGamingGear.Models.DonDatHang>
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="~/Content/bootstrap.css" />
+<table class="table table-hover table-bordered" id="sampleTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên khách hàng</th>
+            <th>Ngày đặt</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Trạng thái thanh toán</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.idDDH</td>
+            <td>@item.TaiKhoan.ten</td>
+            <td>@item.ngayDat</td>
+            <td>@String.Format("{0:0,0}", item.tongTien) đ</td>
+            <td>
+
+                @if (item.trangThai == "1")
+                {
+                    <button type="button" class="btn btn-warning btn-sm px-3">
+                        <span class="indicator-label">
+                            Chờ xử lý
+                        </span>
+                    </button>
+                }
+                else if (item.trangThai == "2")
+                {
+                    <button type="button" class="btn btn-info btn-sm px-3">
+                        Đang giao
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-success btn-sm px-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Hoàn thành">Hoàn thành</button>
+                }
+
+            </td>
+            @if (item.trangThaiThanhToan == "1")
+            {
+                <td><span class="badge bg-danger">Chờ thanh toán...</span></td>
+            }
+            else
+            {
+                <td><span class="badge bg-success">Đã thanh toán</span></td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+@*Tạo liên kết các trang*@
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("DSDonHang", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

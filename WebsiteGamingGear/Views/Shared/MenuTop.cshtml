@@ -39,30 +39,13 @@
                             }
                             else
                             {
-                                if (tk.quyen == 1)
-                                {
-                                    <li>
-                                        <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
-                                        <div class="setting ht-setting">
-                                            <ul class="ht-setting-list">
-                                                <li><a href="#">Quản trị</a></li>
-                                                <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("SuaThongTin", "Account", new { id = tk.id})">
-                                            <img width="40" src="@Url.Content("~/Content/images/" + tk.anhDaiDien)" />
-                                        </a>
-                                    </li>
-                                }
                                 if (tk.quyen == 3)
                                 {
                                     <li>
                                         <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
                                         <div class="setting ht-setting">
                                             <ul class="ht-setting-list">
-                                                <li><a href="#">Đơn hàng</a></li>
+                                                <li><a href="@Url.Action("TrangChu","Admin")">Quản trị</a></li>
                                                 <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
                                             </ul>
                                         </div>
@@ -72,7 +55,6 @@
                                             <img width="40" src="@Url.Content("~/Content/images/" + tk.anhDaiDien)" />
                                         </a>
                                     </li>
-
                                 }
                                 if (tk.quyen == 2)
                                 {
@@ -80,10 +62,26 @@
                                         <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
                                         <div class="setting ht-setting">
                                             <ul class="ht-setting-list">
+                                                <li><a href="@Url.Action("TrangChu","Admin")">Quản lý đơn hàng</a></li>
+                                                <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img width="40" src="@Url.Content("~/Content/images/" + tk.anhDaiDien)" />
+                                    </li>
+
+                                }
+                                if (tk.quyen == 1)
+                                {
+                                    <li>
+                                        <div class="ht-setting-trigger"><span>Xin chào @tk.ten !</span></div>
+                                        <div class="setting ht-setting">
+                                            <ul class="ht-setting-list">
                                                 <li><a href="@Url.Action("SuaThongTin", "Account", new { id = tk.id})">Thông tin tài khoản</a></li>
-                                                <li><a href="#">Quản lý đơn hàng</a></li>
+                                                <li><a href="@Url.Action("DSDonHang", "NguoiDung")">Đơn hàng</a></li>
                                                 <li><a href="@Url.Action("DoiMatKhau", "Account", new { id = tk.id})">Đổi mật khẩu</a></li>
-                                                <li><a href="#">Địa chỉ</a></li>
+                                                <li><a href="@Url.Action("DSLienHe", "NguoiDung")">Liên hệ</a></li>
                                                 <li><a href="@Url.Action("DangXuat", "Account")">Đăng xuất</a></li>
                                             </ul>
                                         </div>

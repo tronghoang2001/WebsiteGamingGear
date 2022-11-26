@@ -400,11 +400,6 @@ namespace WebsiteGamingGear.Controllers
                         donhang.trangThai = "1";
                         db.Entry(donhang).State = EntityState.Modified;
                         db.SaveChanges();
-                        ViewBag.Thongbao = ("Đã chuyển trạng thái đơn hàng: " + "HQ" + id + " sang chờ xử lý!", "success");
-                    }
-                    else
-                    {
-                        ViewBag.Thongbao1 = ("Đơn hàng: " + "#" + id + " đã được hoàn thành, không thể thay đổi trạng thái khác!", "warning");
                     }
                     return RedirectToAction("TrangChu");          
         }
@@ -418,7 +413,6 @@ namespace WebsiteGamingGear.Controllers
                         db.Entry(donhang).State = EntityState.Modified;
                     }                 
                     db.SaveChanges();
-                    ViewBag.Thongbao = ("Đã chuyển trạng thái đơn hàng: " + "#" + id + " sang đang xử lý!", "success");
                     return RedirectToAction("TrangChu");
 
         }
@@ -429,11 +423,165 @@ namespace WebsiteGamingGear.Controllers
                     if (donhang != null)
                     {
                         donhang.trangThai = "3";
+                        donhang.trangThaiThanhToan = "2";
                         db.Entry(donhang).State = EntityState.Modified;
                     }                  
                     db.SaveChanges();
-                    ViewBag.Thongbao = ("Đã chuyển trạng thái đơn hàng: " + id + " sang Hoàn thành!", "success");
                     return RedirectToAction("TrangChu");
+        }
+        public ActionResult LienHe(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.LienHes.ToList().OrderBy(n => n.idLienHe).ToPagedList(pageNumber, pageSize));
+        }
+        //Phản hồi liên hệ
+        [HttpGet]
+        public ActionResult PhanHoiLienHe(int id)
+        {
+            //LẤY RA LIEN HE THEO MÃ
+            var lienhe = db.LienHes.FirstOrDefault(n => n.idLienHe == id);
+            if (lienhe == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(lienhe);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult PhanHoiLienHe(int id, HttpPostedFileBase fileUpload)
+        {
+            var lienhe = db.LienHes.FirstOrDefault(n => n.idLienHe == id);
+            lienhe.idLienHe = id;
+            lienhe.trangThai = "2";
+            //Update trong CSDL
+            UpdateModel(lienhe);
+            db.SaveChanges();
+            return this.PhanHoiLienHe(id);
+        }
+        public ActionResult BinhLuanTinTuc(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.BinhLuanTinTucs.ToList().OrderBy(n => n.idBinhLuan).ToPagedList(pageNumber, pageSize));
+        }
+        //Chuyển trạng thái chưa duyệt
+        public ActionResult BinhLuanThuHoi(int id)
+        {
+            var binhluan = db.BinhLuanTinTucs.SingleOrDefault(n => n.idBinhLuan == id);
+            if (binhluan != null)
+            {
+                binhluan.trangThai = "1";
+                db.Entry(binhluan).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("BinhLuanTinTuc");
+        }
+        //Chuyển trạng thái đã duyệt
+        public ActionResult BinhLuanDaDuyet(int id)
+        {
+            var binhluan = db.BinhLuanTinTucs.SingleOrDefault(n => n.idBinhLuan == id);
+            if (binhluan != null)
+            {
+                binhluan.trangThai = "2";
+                db.Entry(binhluan).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("BinhLuanTinTuc");
+
+        }
+        //Bình luận SẢN PHẨM
+        public ActionResult BinhLuanSanPham(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.DanhGias.ToList().OrderBy(n => n.idDanhGia).ToPagedList(pageNumber, pageSize));
+        }
+        //Chuyển trạng thái chưa duyệt
+        public ActionResult BinhLuanSPThuHoi(int id)
+        {
+            var binhluan = db.DanhGias.SingleOrDefault(n => n.idDanhGia == id);
+            if (binhluan != null)
+            {
+                binhluan.trangThai = "1";
+                db.Entry(binhluan).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("BinhLuanSanPham");
+        }
+        //Chuyển trạng thái đã duyệt
+        public ActionResult BinhLuanSPDaDuyet(int id)
+        {
+            var binhluan = db.DanhGias.SingleOrDefault(n => n.idDanhGia == id);
+            if (binhluan != null)
+            {
+                binhluan.trangThai = "2";
+                db.Entry(binhluan).State = EntityState.Modified;
+            }
+            db.SaveChanges();
+            return RedirectToAction("BinhLuanSanPham");
+        }
+        //TÀI KHOẢN
+        public ActionResult TaiKhoan(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.TaiKhoans.ToList().OrderBy(n => n.id).ToPagedList(pageNumber, pageSize));
+        }
+        //Quyền khách
+        public ActionResult QuyenKhach(int id)
+        {
+            var taikhoan = db.TaiKhoans.SingleOrDefault(n => n.id == id);
+            if (taikhoan != null)
+            {
+                taikhoan.quyen = 1;
+                db.Entry(taikhoan).State = EntityState.Modified;
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.SaveChanges();
+            }
+            return RedirectToAction("TaiKhoan");
+        }
+        //Quyền nhân viên
+        public ActionResult QuyenNhanVien(int id)
+        {
+            var taikhoan = db.TaiKhoans.SingleOrDefault(n => n.id == id);
+            if (taikhoan != null)
+            {
+                taikhoan.quyen = 2;
+                db.Entry(taikhoan).State = EntityState.Modified;
+            }
+            db.Configuration.ValidateOnSaveEnabled = false;
+            db.SaveChanges();
+            return RedirectToAction("TaiKhoan");
+
+        }
+        //Trạng thái hoạt động
+        public ActionResult HoatDong(int id)
+        {
+            var taikhoan = db.TaiKhoans.SingleOrDefault(n => n.id == id);
+            if (taikhoan != null)
+            {
+                taikhoan.trangThai = "1";
+                db.Entry(taikhoan).State = EntityState.Modified;
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.SaveChanges();
+            }
+            return RedirectToAction("TaiKhoan");
+        }
+        //Trạng thái vô hiệu hóa
+        public ActionResult VoHieuHoa(int id)
+        {
+            var taikhoan = db.TaiKhoans.SingleOrDefault(n => n.id == id);
+            if (taikhoan != null)
+            {
+                taikhoan.trangThai = "2";
+                db.Entry(taikhoan).State = EntityState.Modified;
+            }
+            db.Configuration.ValidateOnSaveEnabled = false;
+            db.SaveChanges();
+            return RedirectToAction("TaiKhoan");
+
         }
     }
 }

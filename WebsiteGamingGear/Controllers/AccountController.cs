@@ -7,7 +7,6 @@ using System.Web.Helpers;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using GamingGear.Models.Account;
-using GamingGear.Roles;
 using GamingGear.Others;
 using WebsiteGamingGear.Models;
 using System.Web;
@@ -53,11 +52,10 @@ namespace GamingGear.Controllers
             var kiemTraHoatDong = db.TaiKhoans.Where(m => m.trangThai == "1" && m.taiKhoan1.ToLower() == model.taiKhoan && m.matKhau == model.matKhau).SingleOrDefault();
             var kiemTraVoHieuHoa = db.TaiKhoans.Where(m => m.trangThai == "2" && m.taiKhoan1.ToLower() == model.taiKhoan && m.matKhau == model.matKhau).SingleOrDefault();
             var kiemTraKichHoat = db.TaiKhoans.Where(m => m.trangThai == "0" && m.taiKhoan1.ToLower() == model.taiKhoan && m.matKhau == model.matKhau).SingleOrDefault();
-            bool them = false; ; bool xoa = false; ; bool sua = false; bool doc = false; bool capNhat = false;
 
             if (kiemTraVoHieuHoa != null)
             {
-                Others.Notification.set_flash1s("Tài khoản đã bị vô hiệu hoá", "danger");
+                ViewBag.Thongbao1 = "Tài khoản đã bị vô hiệu hóa!";
             }
             else
             if (kiemTraKichHoat != null)//kiểm tra tài khoản đã kích hoạt hay chưa
@@ -69,49 +67,19 @@ namespace GamingGear.Controllers
                 return RedirectToAction("XacThucEmail", "Account");
             }
             else if (kiemTraHoatDong != null)//check đúng tài khoản và mật khẩu chưa
-            {
-                List<ThaoTac> thaotac = kiemTraHoatDong.Quyen1.ThaoTacs.ToList();
-                foreach (var tt in thaotac)
-                {
-                    if (tt.idThaoTac == 1)
-                    { them = true; }
-                    if (tt.idThaoTac == 2)
-                    { xoa = true; }
-                    if (tt.idThaoTac == 3)
-                    { sua = true; }
-                    if (tt.idThaoTac == 4)
-                    { doc = true; }
-                    if (tt.idThaoTac == 5)
-                    { capNhat = true; }
-                }
-                //lưu thông tin khi sau khi đăng nhập
-                var userData = new LuuThongTinDangNhap
-                {
-                    idTaiKhoan = kiemTraHoatDong.id,
-                    ten = kiemTraHoatDong.ten,
-                    email = kiemTraHoatDong.email,
-                    them = them,
-                    xoa = xoa,
-                    sua = sua,
-                    doc = doc,
-                    capNhat = capNhat,                   
-                    idQuyen = kiemTraHoatDong.Quyen1.idQuyen,
-                    tenQuyen = kiemTraHoatDong.Quyen1.tenQuyen,
-                    anhDaiDien = kiemTraHoatDong.anhDaiDien,
-                    soDienThoai = kiemTraHoatDong.soDienThoai,
-                };
-                ViewBag.ThongBao = "Đăng nhập thành công!";
+            {          
+                ViewBag.Thongbao2 = "Đăng nhập thành công!";
                 Session["TaiKhoan"] = kiemTraHoatDong;
 
                 return RedirectToAction("TrangChu", "NguoiDung");
             }
             else//trường hợp cuối thì cho nó fase sai tài khoản hoặc mật khẩu
             {
-                ViewBag.ThongBao = "Tên đăng nhập hoặc mật khẩu không đúng!";
+                ViewBag.Thongbao3 = "Tên đăng nhập hoặc mật khẩu không đúng!";
             }
             return View(model);
         }
-        //Đăng xuất và xóa cookie
+        //Đăng xuất
         public ActionResult DangXuat()
         {
             Session["TaiKhoan"] = null;
@@ -161,7 +129,7 @@ namespace GamingGear.Controllers
             else
             {
                 tk.taiKhoan1 = dangKy.taiKhoan;
-                tk.quyen = RoleNumber.maQuyenUser; //admin quyền là 0: thành viên quyền là 1,biên tập viên là 2, người kiểm duyệt là 3             
+                tk.quyen = 1;         
                 tk.email = dangKy.Email;
                 tk.ten = dangKy.ten;
                 tk.gioiTinh = "3";

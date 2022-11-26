@@ -8,11 +8,10 @@ namespace WebsiteGamingGear.Models
     public partial class dbGamingGear : DbContext
     {
         public dbGamingGear()
-            : base("name=dbGamingGear")
+            : base("name=dbGamingGear2")
         {
         }
 
-        public virtual DbSet<API> APIs { get; set; }
         public virtual DbSet<BinhLuanTinTuc> BinhLuanTinTucs { get; set; }
         public virtual DbSet<ChiTietDDH> ChiTietDDHs { get; set; }
         public virtual DbSet<ChuongTrinhGiamGia> ChuongTrinhGiamGias { get; set; }
@@ -40,18 +39,6 @@ namespace WebsiteGamingGear.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<API>()
-                .Property(e => e.clientID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<API>()
-                .Property(e => e.secretKey)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<API>()
-                .Property(e => e.returnURL)
-                .IsUnicode(false);
-
             modelBuilder.Entity<BinhLuanTinTuc>()
                 .Property(e => e.trangThai)
                 .IsFixedLength()

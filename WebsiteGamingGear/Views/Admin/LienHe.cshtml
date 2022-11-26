@@ -1,9 +1,9 @@
 ﻿@using WebsiteGamingGear.Models
 @using PagedList.Mvc
-@model PagedList.PagedList<WebsiteGamingGear.Models.TinTuc>
+@model PagedList.PagedList<WebsiteGamingGear.Models.LienHe>
 
 @{
-    ViewBag.Title = "TinTuc";
+    ViewBag.Title = "LienHe";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <aside class="app-sidebar">
@@ -30,12 +30,12 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="@Url.Action("LienHe","Admin")">
+            <a class="app-menu__item active" href="@Url.Action("LienHe","Admin")">
                 <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý liên hệ</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="@Url.Action("TinTuc","Admin")">
+            <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
                 <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
             </a>
         </li>
@@ -58,70 +58,61 @@
 </aside>
 <main class="app-content">
     <div class="app-title">
-        <b>Danh sách tin tức</b>
+        <b>Danh sách liên hệ</b>
         <div id="clock"></div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <div class="row element-button">
-                        <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm"
-                               href="@Url.Action("ThemTinTuc","Admin")"
-                               title="Thêm"><i class="fas fa-plus"></i> Tạo mới tin tức</a>
-                        </div>
-                    </div>
                     <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th width="600">Tiêu đề</th>
-                                <th>Ảnh</th>
-                                <th>Danh mục</th>
-                                <th>Thể loại</th>
-                                <th>Ngày soạn</th>
+                                <th>Tên người LH</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Nội dung</th>
+                                <th>Trạng thái</th>
                                 <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>@item.idTinTuc</td>
-                                    <td>@item.tieuDeTin</td>
-                                    <td>
-                                        <img src="~/Content/images/@item.hinhAnh1" alt="" width="100" />
-                                    </td>
-                                    <td>@item.DanhMucTinTuc.tenDanhMuc</td>
-                                    <td>@item.TheLoaiTinTuc.tenTheLoai</td>
-                                    <td>@item.ngaySoan</td>
-                                    <td>
-                                        <a href="@Url.Action("XoaTinTuc", "Admin", new { id = item.idTinTuc})">
-                                            <button class="btn btn-primary btn-sm trash"
-                                                    type="button"
-                                                    title="Xóa">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </a>
-                                        <a href="@Url.Action("SuaTinTuc", "Admin", new { id = item.idTinTuc})">
-                                            <button class="btn btn-primary btn-sm edit"
-                                                    type="button"
-                                                    title="Sửa"
-                                                    id="show-emp"
-                                                    data-toggle="modal"
-                                                    data-target="#ModalUP">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@item.idLienHe</td>
+                                <td>@item.TaiKhoan.ten</td>
+                                <td>@item.TaiKhoan.soDienThoai</td>
+                                <td>@item.TaiKhoan.email</td>
+                                <td>@Html.Raw(HttpUtility.HtmlDecode(item.noiDung))</td>
+                                @if (item.phanHoiLH == null || item.phanHoiLH == "" && item.trangThai == "1")
+                                {
+                                    <td><span class="badge bg-danger">Chờ phản hồi...</span></td>
+                                }
+                                else
+                                {
+                                    <td><span class="badge bg-success">Đã phản hồi</span></td>
+                                }
+                                <td>
+                                    <a href="@Url.Action("PhanHoiLienHe", "Admin", new { id = item.idLienHe})">
+                                        <button class="btn btn-primary btn-sm edit"
+                                                type="button"
+                                                title="Sửa"
+                                                id="show-emp"
+                                                data-toggle="modal"
+                                                data-target="#ModalUP">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                     @*Tạo liên kết các trang*@
                     <div class="MenuTrang">
-                        @Html.PagedListPager(Model, page => Url.Action("TinTuc", new { page = page }))
+                        @Html.PagedListPager(Model, page => Url.Action("LienHe", new { page = page }))
                     </div>
                     <style>
                         .MenuTrang li {
@@ -191,3 +182,4 @@
             return i;
         }
     }</script>
+

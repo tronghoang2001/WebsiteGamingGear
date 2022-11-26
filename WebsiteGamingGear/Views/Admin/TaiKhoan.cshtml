@@ -1,0 +1,177 @@
+﻿@using WebsiteGamingGear.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<WebsiteGamingGear.Models.TaiKhoan>
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<aside class="app-sidebar">
+    <div class="app-sidebar__user">
+        <img class="app-sidebar__user-avatar"
+             src="~/Content/images/logoHQ.png"
+             width="50"
+             alt="User Image" />
+        <div>
+            <p class="app-sidebar__user-name"><b>Admin</b></p>
+            <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+        </div>
+    </div>
+    <hr />
+    <ul class="app-menu">
+        <li>
+            <a class="app-menu__item" href="@Url.Action("TrangChu","Admin")">
+                <i class="app-menu__icon bx bx-tachometer"></i><span class="app-menu__label">Bảng điều khiển</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("SanPham","Admin")">
+                <i class="app-menu__icon bx bx-purchase-tag-alt"></i><span class="app-menu__label">Quản lý sản phẩm</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("LienHe","Admin")">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý liên hệ</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
+                <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("BinhLuanTinTuc","Admin")">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý bình luận</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item" href="@Url.Action("BinhLuanSanPham","Admin")">
+                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đánh giá</span>
+            </a>
+        </li>
+        <li>
+            <a class="app-menu__item active" href="@Url.Action("TaiKhoan","Admin")">
+                <i class="app-menu__icon bx bx-user"></i><span class="app-menu__label">Quản lý tài khoản</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <b>Danh sách tài khoản</b>
+        <div id="clock"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tài khoản</th>
+                                <th>Tên</th>
+                                <th>Ảnh đại diện</th>
+                                <th>Email</th>
+                                <th>Quyền</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.id</td>
+                                    <td>@item.taiKhoan1</td>
+                                    <td>@item.ten</td>
+                                    <td><img src="~/Content/images/@item.anhDaiDien" width="40"/></td>
+                                    <td>@item.email</td>
+                                    <td>
+                                        <button class="StatusOrder btn p-0" data-status="@item.quyen" data-id="@item.id" data-toggle="modal"
+                                                data-target="#modal-secondary">
+                                            @if (item.quyen == 1)
+                                            {
+                                                <button type="button" class="btn btn-warning btn-sm px-3">
+                                                    <span class="indicator-label">
+                                                        Khách
+                                                    </span>
+                                                </button>
+                                                <button id="buttonwaiting" type="button" onclick="location.href='@Url.Action("QuyenNhanVien", "Admin", new { id = item.id })'" class="btn btn-secondary btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Nhân viên
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            }
+                                            else if (item.quyen == 2)
+                                            {
+                                                <button type="button" id="buttonwaiting" onclick="location.href='@Url.Action("QuyenKhach", "Admin", new { id = item.id })'" class="btn btn-secondary btnloader btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Khách
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-info btn-sm px-3">
+                                                    Nhân viên
+                                                </button>
+                                            }else
+                                            {
+                                                <button type="button" class="btn btn-success btn-sm px-3" data-bs-toggle="tooltip" data-bs-placement="top">Admin</button>
+                                            }
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="StatusOrder btn p-0" data-status="@item.trangThai" data-id="@item.id" data-toggle="modal"
+                                                data-target="#modal-secondary">
+                                            @if (item.trangThai == "1")
+                                            {
+                                                <button type="button" class="btn btn-success btn-sm px-3">
+                                                    <span class="indicator-label">
+                                                        Hoạt động
+                                                    </span>
+                                                </button>
+                                                <button id="buttonwaiting" type="button" onclick="location.href='@Url.Action("VoHieuHoa", "Admin", new { id = item.id })'" class="btn btn-secondary btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Vô hiệu hóa
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" id="buttonwaiting" onclick="location.href='@Url.Action("HoatDong", "Admin", new { id = item.id })'" class="btn btn-secondary btnloader btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Hoạt động
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-sm px-3">
+                                                    Vô hiệu hóa
+                                                </button>
+                                            }
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @*Tạo liên kết các trang*@
+                    <div class="MenuTrang">
+                        @Html.PagedListPager(Model, page => Url.Action("BinhLuanSanPham", new { page = page }))
+                    </div>
+                    <style>
+                        .MenuTrang li {
+                            display: inline;
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</main>
+

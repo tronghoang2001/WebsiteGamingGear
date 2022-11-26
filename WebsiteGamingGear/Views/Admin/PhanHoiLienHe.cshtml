@@ -1,7 +1,6 @@
-﻿@model WebsiteGamingGear.Models.TinTuc
-
+﻿@model WebsiteGamingGear.Models.LienHe
 @{
-    ViewBag.Title = "SuaSanPham";
+    ViewBag.Title = "PhanHoiLienHe";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <aside class="app-sidebar">
@@ -28,12 +27,12 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="@Url.Action("LienHe","Admin")">
+            <a class="app-menu__item active" href="@Url.Action("LienHe","Admin")">
                 <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý liên hệ</span>
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="@Url.Action("TinTuc","Admin")">
+            <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
                 <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
             </a>
         </li>
@@ -57,54 +56,28 @@
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><a href="@Url.Action("TinTuc","Admin")">Danh sách tin tức</a></li>
-            <li class="breadcrumb-item">Sửa tin tức</li>
+            <li class="breadcrumb-item"><a href="@Url.Action("TinTuc","Admin")">Danh sách liên hệ</a></li>
+            <li class="breadcrumb-item">Phản hồi liên hệ</li>
         </ul>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <h3 class="tile-title">Sửa thông tin tin tức</h3>
+                <h3 class="tile-title">Phản hồi liên hệ</h3>
                 <div class="tile-body">
-                    @using (Html.BeginForm("SuaTinTuc", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("PhanHoiLienHe", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="row">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.idTinTuc)
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Tiêu đề tin</label>
-                                <input class="form-control" name="tieuDeTin" type="text" value="@Model.tieuDeTin">
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4" style="color:white">
-                                <label for="hinhAnh1">Ảnh bìa tin</label>
-                                <div class="tm-product-img-edit mx-auto">
-                                    <img src="@Url.Content("~/Content/images/" + Model.hinhAnh1)" alt="Ảnh bìa tin" class="img-fluid d-block mx-auto" width="200">(Ảnh hiện tại)
-                                    @*THÔNG BÁO TRÙNG*@
-                                    @ViewBag.Thongbao
-                                    <i class="fas fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById('fileInput').click();"></i>
-                                </div>
-                                <div class="custom-file mt-3 mb-3">
-                                    Chọn ảnh mới
-                                    <input id="fileInput" type="file" name="fileupload" style="display:none;">
-                                    <input type="button" class="btn btn-primary btn-block mx-auto" value="THAY ĐỔI ẢNH BÌA" onclick="document.getElementById('fileInput').click();">
-                                </div>
-                            </div>                      
-                            <div class="form-group col-md-3">
-                                <label for="exampleSelect1" class="control-label">Danh mục</label>
-                                @Html.DropDownListFor(model => model.idDanhMucTT, (SelectList)ViewBag.idDanhMuc, "-- Chọn danh mục --", new { @class = "form-select form-select-solid" })
-                            </div>
-                            <div class="form-group col-md-3 ">
-                                <label for="exampleSelect1" class="control-label">Thể loại</label>
-                                @Html.DropDownListFor(model => model.theLoaiTin, (SelectList)ViewBag.idTheLoai, "-- Chọn thể loại --", new { @class = "form-select form-select-solid" })
-                            </div>                          
+                            @Html.HiddenFor(model => model.idLienHe)                          
                             <div>
-                                <label class="control-label">Nội dung</label>
-                                <textarea class="form-control" name="noiDung">@Model.noiDung</textarea>
+                                <label class="control-label">Nội dung phản hồi</label>
+                                <textarea class="form-control" name="phanHoiLH">@Model.phanHoiLH</textarea>
                             </div>
                             <div class="form-group col-md-3" style="padding-top:15px">
-                                <button class="btn btn-save" type="submit">Cập nhật</button>
-                                <a class="btn btn-cancel" href="@Url.Action("TinTuc","Admin")">Hủy bỏ</a>
+                                <button class="btn btn-save" type="submit">Gửi phản hồi</button>
+                                <a class="btn btn-cancel" href="@Url.Action("LienHe","Admin")">Hủy bỏ</a>
                             </div>
                         </div>
                     }
@@ -145,3 +118,4 @@
             reader.readAsDataURL(file);
         }
     });</script>
+

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GamingGear.Roles
+namespace GamingGear.Others
 {
     public class SendEmail
     {

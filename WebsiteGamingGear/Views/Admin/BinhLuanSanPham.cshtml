@@ -1,9 +1,9 @@
 ﻿@using WebsiteGamingGear.Models
 @using PagedList.Mvc
-@model PagedList.PagedList<WebsiteGamingGear.Models.TinTuc>
+@model PagedList.PagedList<WebsiteGamingGear.Models.DanhGia>
 
 @{
-    ViewBag.Title = "TinTuc";
+    ViewBag.Title = "LienHe";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <aside class="app-sidebar">
@@ -35,7 +35,7 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item active" href="@Url.Action("TinTuc","Admin")">
+            <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
                 <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
             </a>
         </li>
@@ -45,7 +45,7 @@
             </a>
         </li>
         <li>
-            <a class="app-menu__item" href="@Url.Action("BinhLuanSanPham","Admin")">
+            <a class="app-menu__item active" href="@Url.Action("BinhLuanSanPham","Admin")">
                 <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đánh giá</span>
             </a>
         </li>
@@ -58,70 +58,75 @@
 </aside>
 <main class="app-content">
     <div class="app-title">
-        <b>Danh sách tin tức</b>
+        <b>Danh sách bình luận</b>
         <div id="clock"></div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <div class="row element-button">
-                        <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm"
-                               href="@Url.Action("ThemTinTuc","Admin")"
-                               title="Thêm"><i class="fas fa-plus"></i> Tạo mới tin tức</a>
-                        </div>
-                    </div>
                     <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th width="600">Tiêu đề</th>
-                                <th>Ảnh</th>
-                                <th>Danh mục</th>
-                                <th>Thể loại</th>
-                                <th>Ngày soạn</th>
-                                <th>Chức năng</th>
+                                <th>Tên người BL</th>
+                                <th width="200">Tên sản phẩm</th>
+                                <th width="400">Nội dung</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày thêm</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.idTinTuc</td>
-                                    <td>@item.tieuDeTin</td>
+                                    <td>@item.idDanhGia</td>
+                                    <td>@item.TaiKhoan.ten</td>
+                                    <td>@item.SanPham.tenSanPham</td>
+                                    <td>@item.noiDung</td>
                                     <td>
-                                        <img src="~/Content/images/@item.hinhAnh1" alt="" width="100" />
+                                        <button class="StatusOrder btn p-0" data-status="@item.trangThai" data-id="@item.idDanhGia" data-toggle="modal"
+                                                data-target="#modal-secondary">
+                                            @if (item.trangThai == "1")
+                                            {
+                                                <button type="button" class="btn btn-warning btn-sm px-3">
+                                                    <span class="indicator-label">
+                                                        Chờ duyệt
+                                                    </span>
+                                                </button>
+                                                <button id="buttonwaiting" type="button" onclick="location.href='@Url.Action("BinhLuanSPDaDuyet", "Admin", new { id = item.idDanhGia })'" class="btn btn-secondary btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Đã duyệt
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            }
+                                            else if (item.trangThai == "2")
+                                            {
+                                                <button type="button" id="buttonwaiting" onclick="location.href='@Url.Action("BinhLuanSPThuHoi", "Admin", new { id = item.idDanhGia })'" class="btn btn-secondary btnloader btn-sm px-3 btnloader">
+                                                    <span class="indicator-label">
+                                                        Chờ duyệt
+                                                    </span>
+                                                    <span class="indicator-progress">
+                                                        ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                                <button type="button" class="btn btn-info btn-sm px-3">
+                                                    Đã duyệt
+                                                </button>
+                                            }
+                                        </button>
                                     </td>
-                                    <td>@item.DanhMucTinTuc.tenDanhMuc</td>
-                                    <td>@item.TheLoaiTinTuc.tenTheLoai</td>
-                                    <td>@item.ngaySoan</td>
-                                    <td>
-                                        <a href="@Url.Action("XoaTinTuc", "Admin", new { id = item.idTinTuc})">
-                                            <button class="btn btn-primary btn-sm trash"
-                                                    type="button"
-                                                    title="Xóa">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </a>
-                                        <a href="@Url.Action("SuaTinTuc", "Admin", new { id = item.idTinTuc})">
-                                            <button class="btn btn-primary btn-sm edit"
-                                                    type="button"
-                                                    title="Sửa"
-                                                    id="show-emp"
-                                                    data-toggle="modal"
-                                                    data-target="#ModalUP">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </a>
-                                    </td>
+                                    <td>@item.ngayThem</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                     @*Tạo liên kết các trang*@
                     <div class="MenuTrang">
-                        @Html.PagedListPager(Model, page => Url.Action("TinTuc", new { page = page }))
+                        @Html.PagedListPager(Model, page => Url.Action("BinhLuanSanPham", new { page = page }))
                     </div>
                     <style>
                         .MenuTrang li {
@@ -191,3 +196,6 @@
             return i;
         }
     }</script>
+
+
+

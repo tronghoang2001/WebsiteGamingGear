@@ -5,19 +5,23 @@
 }
 
 @foreach (var sanpham in Model)
-{   
-    <div class="row">
-        <div class="comment-author-infos pt-25">
-            <span>@sanpham.tenNguoiDanhGia</span>
-            <em>@sanpham.ngayThem</em>
+{
+    if (sanpham.trangThai == "2")
+    {
+        <div class="row">
+            <div class="comment-author-infos pt-25">
+                <span>@sanpham.tenNguoiDanhGia</span>
+                <em>@sanpham.ngayThem</em>
+            </div>
+            <div class="author-avatar pt-15">
+                <img src="~/Content/images/@sanpham.TaiKhoan.anhDaiDien" width="40"
+                     alt="User" />
+            </div>
         </div>
-        <div class="author-avatar pt-15">
-            <img src="~/Content/images/@sanpham.anhDaiDien" width="40"
-                 alt="User" />
+        <div class="comment-details">
+            <p>@sanpham.noiDung</p>
         </div>
-    </div>  
-    <div class="comment-details">
-        <p>@sanpham.noiDung</p>
-    </div>
+    }
+
 }
 

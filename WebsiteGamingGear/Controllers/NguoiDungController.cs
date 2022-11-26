@@ -1,5 +1,4 @@
-﻿using GamingGear.Others;
-using WebsiteGamingGear.Models;
+﻿using WebsiteGamingGear.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -164,6 +163,7 @@ namespace GamingGear.Controllers
             lienhe.soDienThoai = tk.soDienThoai;
             lienhe.email = tk.email;
             lienhe.noiDung = noidunglh;
+            lienhe.trangThai = "1";
             if (ModelState.IsValid)
             {
                 db.LienHes.Add(lienhe);
@@ -303,10 +303,18 @@ namespace GamingGear.Controllers
             return View(binhluan);
         }
         //Danh sách đơn hàng
-        public ActionResult DSDonHang(int id)
+        public ActionResult DSDonHang(int? page)
         {
-            var donhang = from dh in db.DonDatHangs where id == dh.idDDH select dh;
-            return View(donhang);
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.DonDatHangs.ToList().OrderBy(n => n.idDDH).ToPagedList(pageNumber, pageSize));
+        }
+        //Danh sách liên hệ
+        public ActionResult DSLienHe(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.LienHes.ToList().OrderBy(n => n.idLienHe).ToPagedList(pageNumber, pageSize));
         }
     }
 }
