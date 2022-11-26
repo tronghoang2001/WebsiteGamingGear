@@ -22,7 +22,7 @@ namespace WebsiteGamingGear.Controllers
         public ActionResult TrangChu(int? page)
         {
             ViewBag.TongDonHang = db.DonDatHangs.Select(a => a.idDDH).Count();
-            ViewBag.TongDoanhThu = db.DonDatHangs.Select(a => a.tongTien).Sum();
+            ViewBag.TongDoanhThu = db.DonDatHangs.Where(a => a.trangThaiThanhToan == "2").Select(a => a.tongTien).Sum();
             ViewBag.LuotMua = db.SanPhams.Select(a => a.luotMua).Sum();
             ViewBag.LuotXem = db.SanPhams.Select(a => a.luotXem).Sum();
             int pageNumber = (page ?? 1);

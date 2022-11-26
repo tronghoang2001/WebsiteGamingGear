@@ -1,11 +1,16 @@
 ﻿@using WebsiteGamingGear.Models
-@{ 
+@{
     ViewBag.Title = "LienHe";
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    Layout = null;
 }
+@Html.Partial("Header")
+@Html.Partial("MenuTop")
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <!-- contact32:04-->
+<head>
+    <script src="https://cdn.tiny.cloud/1/y3lyotveui9s8kmg5qlzh1663srigpa12trnoobnrkwj51f5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
 <body>
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
@@ -62,9 +67,10 @@
                                     @{
                                         TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
                                     }
-                                    @using (Html.BeginForm())
+                                    @using (Html.BeginForm("LienHe", "NguoiDung", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                                     {
-                                        @Html.ValidationSummary(true)
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="form-group">
                                             <label>Họ tên <span class="required">*</span></label>
                                             <input type="text"
@@ -82,7 +88,7 @@
                                         </div>
                                         <div class="form-group mb-30">
                                             <label>Nội dung liên hệ</label>
-                                            <textarea name="noiDungLH"></textarea>
+                                            <textarea name="noiDung"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit"
@@ -107,7 +113,14 @@
         <!-- Footer Area End Here -->
     </div>
     <!-- Body Wrapper End Here -->
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
 </body>
 <!-- contact32:04-->
 </html>
-
+@Html.Partial("Footer")
