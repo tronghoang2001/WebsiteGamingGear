@@ -305,7 +305,6 @@ namespace WebsiteGamingGear.Controllers
             db.SaveChanges();
             return RedirectToAction("TinTuc");
         }
-
         //CHỈNH SỬA TIN TUC
         [HttpGet]
         public ActionResult SuaTinTuc(int id)
@@ -321,9 +320,6 @@ namespace WebsiteGamingGear.Controllers
             ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
             return View(tinTuc);
         }
-
-
-
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult SuaTinTuc(int id, HttpPostedFileBase fileUpload)

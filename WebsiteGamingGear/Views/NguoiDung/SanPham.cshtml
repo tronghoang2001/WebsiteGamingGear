@@ -15,7 +15,10 @@
 </head>
 @Html.Partial("Header")
 
-<body>
+<body class="preloading">
+    <div class="load">
+        <img src="~/Content/images/Loading.gif" />
+    </div>
     <!--[if lt IE 8]>
       <p class="browserupgrade">
         You are using an <strong>outdated</strong> browser. Please
@@ -72,7 +75,7 @@
                                     </ul>
                                     <!-- shop-item-filter-list end -->
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                         <!-- shop-top-bar end -->
                         <!--left sidebar start-->
@@ -83,7 +86,7 @@
                                     <ul class="li-blog-archive">
                                         @Html.Action("DanhMuc", "NguoiDung")
                                     </ul>
-                                </div>    
+                                </div>
                                 <div class="li-blog-sidebar">
                                     <h4 class="li-blog-sidebar-title">Thương hiệu</h4>
                                     <ul class="li-blog-archive">

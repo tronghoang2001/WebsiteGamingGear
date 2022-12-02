@@ -6,13 +6,16 @@
 }
 
 
-<body>
+<body class="preloading">
     <!-- partial:index.partial.html -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="~/Scripts/GamingGearScripts/loader_email.js"></script>
     <link rel="stylesheet" href="~/css/myCss/loginstyle.css" />
-
+    <link rel="stylesheet" href="~/css/myCss/style.css" />
+    <div class="load">
+        <img src="~/Content/images/Loading.gif" />
+    </div>
 
     <div id="form">
         @using (Html.BeginForm("DangKy", "Account", FormMethod.Post))
@@ -107,7 +110,8 @@
     <!-- partial -->
     <script src="./script.js"></script>
 
-
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/scritps.js"></script>
 
 </body>
 

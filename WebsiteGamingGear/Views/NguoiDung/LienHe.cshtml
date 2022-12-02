@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <!-- contact32:04-->
-<head>
-    <script src="https://cdn.tiny.cloud/1/y3lyotveui9s8kmg5qlzh1663srigpa12trnoobnrkwj51f5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-</head>
-<body>
+<body class="preloading">
+    <div class="load">
+        <img src="~/Content/images/Loading.gif" />
+    </div>
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
@@ -113,13 +113,8 @@
         <!-- Footer Area End Here -->
     </div>
     <!-- Body Wrapper End Here -->
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        });
-    </script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/scritps.js"></script>
 </body>
 <!-- contact32:04-->
 </html>

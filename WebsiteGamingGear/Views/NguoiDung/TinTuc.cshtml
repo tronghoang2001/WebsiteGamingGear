@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
 </head>
 @Html.Partial("Header")
-<body>
+<body class="preloading">
+    <div class="load">
+        <img src="~/Content/images/Loading.gif" />
+    </div>
     <!-- Begin Body Wrapper -->
     <div class="body-wrapper">
         <!-- Begin Header Area -->
@@ -40,7 +43,7 @@
                             <div class="li-blog-sidebar pt-25">
                                 <h4 class="li-blog-sidebar-title">Danh mục</h4>
                                 <ul class="li-blog-archive">
-                                    @Html.Action("DanhMucTT","NguoiDung")
+                                    @Html.Action("DanhMucTT", "NguoiDung")
                                 </ul>
                             </div>
                         </div>

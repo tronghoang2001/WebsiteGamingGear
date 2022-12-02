@@ -1,0 +1,43 @@
+﻿@model WebsiteGamingGear.Models.DonDatHang
+@{ 
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="row">
+    <div class="col-lg-6 col-12">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="col-md-6">
+                <div class="checkout-form-list">
+                    <label>Tên người nhận </label>
+                    <input id="tenNguoiNhan" name="tenNguoiNhan" type="text" class="form-control form-control-lg"
+                           placeholder="Tên người nhận" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="checkout-form-list">
+                    <label>Địa chỉ người nhận </label>
+                    <input id="diaChiNguoiNhan" name="diaChiNguoiNhan" type="text" class="form-control form-control-lg"
+                           placeholder="Địa chỉ người nhận" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="checkout-form-list">
+                    <label>Số điện thoại người nhận </label>
+                    <input id="sdtNguoiNhan" name="sdtNguoiNhan" type="text" class="form-control form-control-lg"
+                           placeholder="Số điện thoại người nhận" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="checkout-form-list">
+                    <label>Ghi chú đơn hàng </label>
+                    <input id="ghiChu" name="ghiChu" type="text" class="form-control form-control-lg"
+                           placeholder="Ghi chú đơn hàng" />
+                </div>
+            </div>
+            <div class="order-button-payment">
+                <input value="Cập nhật" type="submit" />
+            </div>
+        }
+    </div>
+</div>

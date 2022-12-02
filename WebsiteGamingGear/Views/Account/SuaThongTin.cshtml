@@ -6,8 +6,11 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="~/css/myCss/editProfile.css" rel="stylesheet">
 <link href="~/css/bootstrap.min.css" rel="stylesheet">
-
-<div class="container">
+<link rel="stylesheet" href="~/css/myCss/style.css" />
+<body class="preloading">
+    <div class="load">
+        <img src="~/Content/images/Loading.gif" />
+    </div>
     <div class="view-account">
         <section class="module">
             @using (Html.BeginForm("SuaThongTin", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -92,4 +95,6 @@
             }
         </section>
     </div>
-</div>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/scritps.js"></script>
+</body>

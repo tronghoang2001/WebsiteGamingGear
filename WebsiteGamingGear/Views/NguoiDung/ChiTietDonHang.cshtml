@@ -1,0 +1,101 @@
+﻿@using WebsiteGamingGear.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<WebsiteGamingGear.Models.ChiTietDDH>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<!-- shopping-cart31:32-->
+@Html.Partial("Header")
+<body>
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+    <!-- Begin Body Wrapper -->
+    <div class="body-wrapper">
+        <!-- Begin Header Area -->
+        @Html.Partial("MenuTop")
+        <!-- Header Area End Here -->
+        <!-- Begin Li's Breadcrumb Area -->
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <ul>
+                        <li><a href="@Url.Action("TrangChu", "NguoiDung")">Trang chủ</a></li>
+                        <li class="active">Chi tiết đơn hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Li's Breadcrumb Area End Here -->
+        <!--Shopping Cart Area Strat-->
+        <div class="Shopping-cart-area pt-60 pb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-content table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="li-product-remove">ID Sản Phẩm</th>
+                                        <th width="400" class="li-product-thumbnail">Tên Sản Phẩm</th>
+                                        <th width="300" class="cart-product-name">Hình ảnh</th>
+                                        <th class="li-product-price">Giá</th>
+                                        <th class="li-product-quantity">Số lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="li-product-remove">
+                                                @item.idSanPham
+                                            </td>
+                                            <td class="li-product-name">
+                                                @item.SanPham.tenSanPham
+                                            </td>
+                                            <td class="li-product-thumbnail">
+                                                <img width="200" src="~/Content/images/@item.SanPham.hinhAnh"
+                                                     alt="Li's Product Image" />
+                                            </td>
+                                            <td class="li-product-price">
+                                                <span class="amount">@String.Format("{0:0,0}", item.SanPham.gia) VNĐ</span>
+                                            </td>
+                                            <td class="quantity">
+                                                @item.soLuong
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Shopping Cart Area End-->
+        <!-- Begin Footer Area -->
+        @Html.Partial("Footer")
+    </div>
+    <!-- Body Wrapper End Here -->
+    @Html.Partial("JS")
+</body>
+
+<!-- shopping-cart31:32-->
+</html>
+@*Tạo liên kết các trang*@
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("ChiTietDonHang", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+

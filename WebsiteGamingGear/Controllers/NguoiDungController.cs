@@ -156,7 +156,6 @@ namespace GamingGear.Controllers
         {
             TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
             lienhe.idTaiKhoan = tk.id;
-            lienhe.tenNguoiLH = tk.ten;
             lienhe.soDienThoai = tk.soDienThoai;
             lienhe.email = tk.email;
             lienhe.trangThai = "1";
@@ -311,6 +310,48 @@ namespace GamingGear.Controllers
             int pageNumber = (page ?? 1);
             int pageSize = 10;
             return View(db.LienHes.ToList().Where(n => n.idTaiKhoan == tk.id).OrderBy(n => n.idLienHe).ToPagedList(pageNumber, pageSize));
+        }
+        //Sua Thong tin DON HANG
+        [HttpGet]
+        public ActionResult SuaDonHang(int id)
+        {
+            //LẤY RA DON HANG THEO MÃ
+            var donhang = db.DonDatHangs.FirstOrDefault(n => n.idDDH == id);
+            if (donhang == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(donhang);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SuaDonHang(int id, HttpPostedFileBase fileUpload)
+        {
+            var donhang = db.DonDatHangs.FirstOrDefault(n => n.idDDH == id);
+            donhang.idDDH = id;
+            //Update trong CSDL
+            UpdateModel(donhang);
+            db.SaveChanges();
+            return RedirectToAction("DSDonHang","NguoiDung");
+        }
+        public ActionResult Chat()
+        {
+            if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == "")
+            {
+                return RedirectToAction("DangNhap", "Account");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        //Danh sách đơn hàng
+        public ActionResult ChiTietDonHang(int? page, int id)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            return View(db.ChiTietDDHs.ToList().Where(n => n.idDDH == id).OrderBy(n => n.idDDH).ToPagedList(pageNumber, pageSize));
         }
     }
 }

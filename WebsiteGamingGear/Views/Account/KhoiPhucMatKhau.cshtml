@@ -5,7 +5,11 @@
 @using (Html.BeginForm("KhoiPhucMatKhau", "Account", null, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="container">
+    <link rel="stylesheet" href="~/css/myCss/style.css" />
+    <body class="preloading">
+        <div class="load">
+            <img src="~/Content/images/Loading.gif" />
+        </div>
         <!--begin::Row-->
         <div class="row justify-content-sm-center h-100">
             <!--begin::Col-->
@@ -59,5 +63,7 @@
             <!--end::Col-->
         </div>
         <!--end::Row-->
-    </div>
+        <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/scritps.js"></script>
+    </body>
 }

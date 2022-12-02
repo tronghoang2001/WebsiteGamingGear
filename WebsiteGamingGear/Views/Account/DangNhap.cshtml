@@ -4,15 +4,16 @@
     ViewBag.Title = "DangNhap";
     Layout = null;
 }
-
-
-<body>
+<body class="preloading">
     <!-- partial:index.partial.html -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="~/Scripts/GamingGearScripts/loader_email.js"></script>
     <link rel="stylesheet" href="~/css/myCss/loginstyle.css" />
-
+    <link rel="stylesheet" href="~/css/myCss/style.css"/>
+    <div class="load">
+        <img src="~/Content/images/Loading.gif" />
+    </div>
 
     <div id="form">
         @using (Html.BeginForm("DangNhap", "Account", FormMethod.Post))
@@ -20,49 +21,49 @@
             @Html.AntiForgeryToken()
 
             <div class="container">
-                
+
                 <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-md-8 col-md-offset-2">
                     <div id="userform">
-                        <ul class="nav nav-tabs nav-justified" >
-                            <li class="active"><a href="@Url.Action("DangKy", "Account")"  >Đăng ký</a></li>
-                            <li class="active"><a href="@Url.Action("DangNhap", "Account")" >Đăng nhập</a></li>
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active"><a href="@Url.Action("DangKy", "Account")">Đăng ký</a></li>
+                            <li class="active"><a href="@Url.Action("DangNhap", "Account")">Đăng nhập</a></li>
                         </ul>
-                        
-                            
-                            <div class="tab-content">
-                                <h2 class="text-uppercase text-center"> Đăng nhập</h2>
-                                <h4>@ViewBag.Thongbao1</h4>
-                                <h4>@ViewBag.Thongbao2</h4>
-                                <h4>@ViewBag.Thongbao3</h4>
-                                <form>
-                                    @using (Html.BeginForm())
-                                    {
-                                        @Html.ValidationSummary(true)
 
 
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        <div class="form-group">
+                        <div class="tab-content">
+                            <h2 class="text-uppercase text-center"> Đăng nhập</h2>
+                            <h4>@ViewBag.Thongbao1</h4>
+                            <h4>@ViewBag.Thongbao2</h4>
+                            <h4>@ViewBag.Thongbao3</h4>
+                            <form>
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.ValidationSummary(true)
 
-                                            <input class="form-control" data-val="true" data-val-length="The field ten must be a string with a maximum length of 50."
-                                                   data-val-length-max="50" data-val-required="The ten field is required." id="taiKhoan" name="taiKhoan" placeholder="Nhập tài khoản" type="text" value="">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                        <div class="form-group">
 
-                                            <input class="form-control" data-val="true" data-val-length="The field matKhau must be a string with a maximum length of 200."
-                                                   data-val-length-max="200" data-val-required="The matKhau field is required." id="matKhau" name="matKhau" placeholder="Nhập Mật khẩu" type="password" value="">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
-                                        <div class="mrgn-30-top">
-                                            <button type="submit" class="btn btn-larger btn-block">
-                                                Đăng nhập
-                                            </button>
-                                        </div>
-                                    }
-                                    </form>
-                                
-                                </div>
-                        
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+
+                                        <input class="form-control" data-val="true" data-val-length="The field ten must be a string with a maximum length of 50."
+                                               data-val-length-max="50" data-val-required="The ten field is required." id="taiKhoan" name="taiKhoan" placeholder="Nhập tài khoản" type="text" value="">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input class="form-control" data-val="true" data-val-length="The field matKhau must be a string with a maximum length of 200."
+                                               data-val-length-max="200" data-val-required="The matKhau field is required." id="matKhau" name="matKhau" placeholder="Nhập Mật khẩu" type="password" value="">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="mrgn-30-top">
+                                        <button type="submit" class="btn btn-larger btn-block">
+                                            Đăng nhập
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -76,7 +77,8 @@
     <!-- partial -->
     <script src="./script.js"></script>
 
-
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/scritps.js"></script>
 
 </body>
 

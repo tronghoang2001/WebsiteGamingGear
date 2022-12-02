@@ -182,12 +182,16 @@ namespace WebsiteGamingGear.Controllers
             //thêm chi tiết đơn hàng
             foreach (var item in gh)
             {
+                
+                var sp = data.SanPhams.SingleOrDefault(p => p.idSanPham == item.iIdSanPham);
                 ChiTietDDH ct = new ChiTietDDH();
                 ct.idDDH = ddh.idDDH;
                 ct.idSanPham = item.iIdSanPham;
                 ct.soLuong = item.iSoLuong;
                 ct.gia = item.iDonGia;
+                sp.soLuong = sp.soLuong - ct.soLuong;
                 data.ChiTietDDHs.Add(ct);
+                UpdateModel(sp);
             }
             data.SaveChanges();
             Session["Giohang"] = null;

@@ -1,13 +1,17 @@
 ﻿@{
-    
+
     Layout = null;
 }
 @section scripts{
 }
 @using (Html.BeginForm("QuenMatKhau", "Account", null, FormMethod.Post))
 {
+    <link rel="stylesheet" href="~/css/myCss/style.css" />
     <!--begin::Section-->
-    <section class="h-80 margin_forgotpass">
+    <body class="preloading">
+        <div class="load">
+            <img src="~/Content/images/Loading.gif" />
+        </div>
         <!--begin::Container-->
         <div class="container h-100 margin_mobile_fixed">
             <!--begin::Row-->
@@ -36,7 +40,7 @@
                                     <label class="mb-1 text-muted " for="password">Email</label>
                                     <!--end::Label-->
                                     @Html.TextBox("EmailID", "", new { @class = "form-control", @id = "Emailforgot", @required = "required", @type = "email" })
-                                   
+
                                 </div>
                                 <!--end::Input Form Group-->
                             </form>
@@ -67,6 +71,7 @@
             <!--end::Row-->
         </div>
         <!--end::Container-->
-    </section>
-    <!--end::Section-->
+        <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/scritps.js"></script>
+    </body>
 }
