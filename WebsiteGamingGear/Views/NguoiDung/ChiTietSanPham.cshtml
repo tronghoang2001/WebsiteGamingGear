@@ -121,6 +121,20 @@
                         <div class="product-details-view-content pt-60">
                             <div class="product-info">
                                 <h2>@Model.tenSanPham</h2>
+                                @if (Model.soLuong == 0)
+                                {
+                                    <span style="font-size:20px" class="badge bg-danger">Hết hàng</span>
+
+                                }
+                                else if (Model.soLuong <= 3)
+                                {
+                                    <span style="font-size:20px" class="badge bg-warning">Sắp hết hàng</span>
+
+                                }
+                                else
+                                {
+                                    <span style="font-size:20px" class="badge bg-success">Còn hàng</span>
+                                }
                                 <div class="rating-box pt-20">
                                     <ul class="rating rating-with-review-item">
                                         <li><i class="fa fa-star-o"></i></li>
@@ -140,9 +154,16 @@
                                         </span>
                                     </p>
                                 </div>
+                                @if (Model.soLuong == 0)
+                                {
+                                    <button style="background:#ffd700; color:black" class="btn" disabled>Mua hàng</button>
+                                }
+                                else
+                                {
                                     <a href="@Url.Action("ThemGioHang", "GioHang", new { @iIdSanPham = Model.idSanPham, @strURL = Request.Url.ToString() })">
                                         <button style="background:#ffd700; color:black" class="btn">Mua hàng</button>
                                     </a>
+                                }
                                 <div class="product-additional-info pt-25">
                                     <div class="product-social-sharing pt-25">
                                         <ul>

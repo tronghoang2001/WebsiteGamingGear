@@ -39,6 +39,7 @@
                 <div class="row">
                     <div class="col-12">
                             <div class="table-content table-responsive">
+                                <h3>@ViewBag.Thongbao</h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -116,7 +117,7 @@
                                             <li>Tổng số lượng <span>@ViewBag.Tongsoluong</span></li>
                                             <li>Tổng tiền <span>@String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ</span></li>
                                         </ul>
-                                        <a href="@Url.Action("DatHang", "GioHang")">Tiến hành thanh toán</a>
+                                        <a href="@Url.Action("DatHang", "GioHang")">Tiến hành đặt hàng</a>
                                     </div>
                                 </div>
                             </div>

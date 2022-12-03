@@ -34,6 +34,7 @@
         </div>
         <!-- Li's Breadcrumb Area End Here -->
         <!--Checkout Area Strat-->
+        <h3>@ViewBag.Thongbao</h3>
         <div class="checkout-area pt-60 pb-30">
             <div class="container">
                 @{
@@ -91,12 +92,12 @@
                                 </div>
                             </div>
                             <div class="order-button-payment">
-                                <input value="Đặt hàng" type="submit" />
+                                <input value="Thanh toán khi nhận hàng" type="submit" />
                             </div>
                         }
-                    <div class="order-button-payment">
-                        <a href="@Url.Action("ThanhToan", "GioHang")"><input value="Thanh toán" type="submit"/></a>
-                    </div>                        
+                        <div class="order-button-payment">
+                            <a href="@Url.Action("ThanhToan","GioHang")"><input value="Thanh toán qua VNPAY" type="submit" /></a>
+                        </div>
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="your-order">

@@ -84,6 +84,14 @@ namespace WebsiteGamingGear.Controllers
             {
                 return RedirectToAction("TrangChu", "NguoiDung");
             }
+            foreach (var item in lstGioHang)
+            {
+                var sp = data.SanPhams.SingleOrDefault(p => p.idSanPham == item.iIdSanPham);
+                if (item.iSoLuong > sp.soLuong)
+                {
+                    ViewBag.Thongbao ="Sản phẩm bạn mua không còn đủ số lượng bạn yêu cầu. Sản phẩm " + sp.tenSanPham + " chỉ còn số lượng là " + sp.soLuong + " !";
+                }              
+            }
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();
             return View(lstGioHang);
@@ -181,34 +189,49 @@ namespace WebsiteGamingGear.Controllers
             data.SaveChanges();
             //thêm chi tiết đơn hàng
             foreach (var item in gh)
-            {
-                
+            {             
                 var sp = data.SanPhams.SingleOrDefault(p => p.idSanPham == item.iIdSanPham);
                 ChiTietDDH ct = new ChiTietDDH();
-                ct.idDDH = ddh.idDDH;
-                ct.idSanPham = item.iIdSanPham;
-                ct.soLuong = item.iSoLuong;
-                ct.gia = item.iDonGia;
-                sp.soLuong = sp.soLuong - ct.soLuong;
-                data.ChiTietDDHs.Add(ct);
-                UpdateModel(sp);
+                if (item.iSoLuong > sp.soLuong)
+                {
+                    return RedirectToAction("GioHang");
+                }
+                else
+                {
+                    ct.idDDH = ddh.idDDH;
+                    ct.idSanPham = item.iIdSanPham;
+                    ct.soLuong = item.iSoLuong;
+                    ct.gia = item.iDonGia;
+                    sp.soLuong = sp.soLuong - ct.soLuong;
+                    data.ChiTietDDHs.Add(ct);
+                    UpdateModel(sp);
+                    data.SaveChanges();
+                    return RedirectToAction("XacNhanDonHang", "GioHang");
+                }             
             }
-            data.SaveChanges();
-            Session["Giohang"] = null;
-            return RedirectToAction("XacNhanDonHang", "GioHang");
+            return View();
         }
         public ActionResult XacNhanDonHang()
         {
+            Session["Giohang"] = null;
             return View();
         }
         public ActionResult ThanhToan()
         {
+            List<GioHang> gh = LayGioHang();
             string url = ConfigurationManager.AppSettings["Url"];
             string returnUrl = ConfigurationManager.AppSettings["ReturnUrl"];
             string tmnCode = ConfigurationManager.AppSettings["TmnCode"];
             string hashSecret = ConfigurationManager.AppSettings["HashSecret"];
             string totals = (TongTien() * 100).ToString(); //total là tổng của session giỏ hàng
-
+            foreach (var item in gh)
+            {
+                var sp = data.SanPhams.SingleOrDefault(p => p.idSanPham == item.iIdSanPham);
+                if (item.iSoLuong > sp.soLuong)
+                {
+                    return RedirectToAction("GioHang");
+                }
+            }
             XuLy pay = new XuLy();
 
             //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
@@ -301,33 +324,35 @@ namespace WebsiteGamingGear.Controllers
                         ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId + " | Mã lỗi: " + vnp_ResponseCode;
                         ddh.trangThaiThanhToan = "1";
                     }
-                    ddh.idTaiKhoan = tk.id;
-                    ddh.tenNguoiDat = tk.ten;
-                    ddh.ngayDat = DateTime.Now;
-                    ddh.tenNguoiNhan = tk.ten;
-                    ddh.diaChiNguoiNhan = tk.diaChi;
-                    ddh.sdtNguoiNhan = tk.soDienThoai;
-                    ddh.trangThai = "1";
-                    ddh.tongTien = TongTien();
-                    data.DonDatHangs.Add(ddh);
-                    data.SaveChanges();
-                    //thêm chi tiết đơn hàng
-                    foreach (var item in gh)
-                    {
-                        ChiTietDDH ct = new ChiTietDDH();
-                        ct.idDDH = ddh.idDDH;
-                        ct.idSanPham = item.iIdSanPham;
-                        ct.soLuong = item.iSoLuong;
-                        ct.gia = item.iDonGia;
-                        data.ChiTietDDHs.Add(ct);
-                    }
-                    data.SaveChanges();
                 }
                 else
                 {
                     ViewBag.Message = "Có lỗi xảy ra trong quá trình xử lý";
+                    ddh.trangThaiThanhToan = "1";
+                }
+                ddh.idTaiKhoan = tk.id;
+                ddh.tenNguoiDat = tk.ten;
+                ddh.ngayDat = DateTime.Now;
+                ddh.trangThai = "1";
+                ddh.tongTien = TongTien();
+                data.DonDatHangs.Add(ddh);
+                data.SaveChanges();
+                //thêm chi tiết đơn hàng
+                foreach (var item in gh)
+                {
+                    var sp = data.SanPhams.SingleOrDefault(p => p.idSanPham == item.iIdSanPham);
+                    ChiTietDDH ct = new ChiTietDDH();
+                    ct.idDDH = ddh.idDDH;
+                    ct.idSanPham = item.iIdSanPham;
+                    ct.soLuong = item.iSoLuong;
+                    ct.gia = item.iDonGia;
+                    sp.soLuong = sp.soLuong - ct.soLuong;
+                    data.ChiTietDDHs.Add(ct);
+                    UpdateModel(sp);
+                    data.SaveChanges();
                 }
             }
+            Session["Giohang"] = null;
             return View();
         }
     }

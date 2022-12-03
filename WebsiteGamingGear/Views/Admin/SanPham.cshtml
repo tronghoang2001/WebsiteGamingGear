@@ -70,90 +70,77 @@
                             <a class="btn btn-add btn-sm"
                                href="@Url.Action("ThemSanPham","Admin")"
                                title="Thêm"><i class="fas fa-plus"></i> Tạo mới sản phẩm</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm nhap-tu-file"
-                               type="button"
-                               title="Nhập"
-                               onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ file</a>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm print-file"
-                               type="button"
-                               title="In"
-                               onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm print-file js-textareacopybtn"
-                               type="button"
-                               title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm pdf-file"
-                               type="button"
-                               title="In"
-                               onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm"
-                               type="button"
-                               title="Xóa"
-                               onclick="myFunction(this)">
-                                <i class="fas fa-trash-alt"></i> Xóa tất cả
-                            </a>
-                        </div>
+                        </div>                   
                     </div>
                     <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
                             <tr>
                                 <th width="5">ID</th>
-                                <th width="400">Tên sản phẩm</th>
+                                <th width="300">Tên sản phẩm</th>
                                 <th>Ảnh</th>
                                 <th>Danh mục</th>
                                 <th>Thể loại</th>
                                 <th>Thương hiệu</th>
                                 <th>Giá tiền</th>
+                                <th>Số lượng</th>
+                                <th>Trạng thái</th>
                                 <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>@item.idSanPham</td>
-                                    <td>@item.tenSanPham</td>
+                            <tr>
+                                <td>@item.idSanPham</td>
+                                <td>@item.tenSanPham</td>
+                                <td>
+                                    <img src="~/Content/images/@item.hinhAnh" alt="" width="100" />
+                                </td>
+                                <td>@item.DanhMucSP.tenDanhMuc</td>
+                                <td>@item.TheLoaiSP.tenTheLoai</td>
+                                <td>@item.ThuongHieu.tenThuongHieu</td>
+                                <td>@String.Format("{0:0,0}", item.gia) đ</td>
+                                <td>@item.soLuong</td>
+                                @if (item.soLuong == 0)
+                                {
                                     <td>
-                                        <img src="~/Content/images/@item.hinhAnh" alt="" width="100" />
+                                        <span class="badge bg-danger">Hết hàng</span>
                                     </td>
-                                    <td>@item.DanhMucSP.tenDanhMuc</td>
-                                    <td>@item.TheLoaiSP.tenTheLoai</td>
-                                    <td>@item.ThuongHieu.tenThuongHieu</td>
-                                    <td>@String.Format("{0:0,0}", item.gia) đ</td>
+
+                                }
+                                else if (item.soLuong <= 3)
+                                {
                                     <td>
-                                        <a href="@Url.Action("XoaSanPham", "Admin", new { id = item.idSanPham})">
-                                            <button class="btn btn-primary btn-sm trash"
-                                                    type="button"
-                                                    title="Xóa">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </a>
-                                        <a href="@Url.Action("SuaSanPham", "Admin", new { id = item.idSanPham})">
-                                            <button class="btn btn-primary btn-sm edit"
-                                                    type="button"
-                                                    title="Sửa"
-                                                    id="show-emp"
-                                                    data-toggle="modal"
-                                                    data-target="#ModalUP">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </a>
+                                        <span class="badge bg-warning">Sắp hết hàng</span>
                                     </td>
-                                </tr>
+
+                                }
+                                else
+                                {
+                                    <td>
+                                        <span class="badge bg-success">Còn hàng</span>
+                                    </td>
+                                }
+                                <td>
+                                    <a href="@Url.Action("XoaSanPham", "Admin", new { id = item.idSanPham})">
+                                        <button class="btn btn-primary btn-sm trash"
+                                                type="button"
+                                                title="Xóa">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </a>
+                                    <a href="@Url.Action("SuaSanPham", "Admin", new { id = item.idSanPham})">
+                                        <button class="btn btn-primary btn-sm edit"
+                                                type="button"
+                                                title="Sửa"
+                                                id="show-emp"
+                                                data-toggle="modal"
+                                                data-target="#ModalUP">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
