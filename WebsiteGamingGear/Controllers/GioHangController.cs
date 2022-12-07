@@ -176,7 +176,6 @@ namespace WebsiteGamingGear.Controllers
             var ghichudonhang = collection["ghiChuDH"];
 
             ddh.idTaiKhoan = tk.id;
-            ddh.tenNguoiDat = tk.ten;
             ddh.ngayDat = DateTime.Now;
             ddh.tenNguoiNhan = tennguoinhan;
             ddh.diaChiNguoiNhan = diachinguoinhan;
@@ -331,7 +330,9 @@ namespace WebsiteGamingGear.Controllers
                     ddh.trangThaiThanhToan = "1";
                 }
                 ddh.idTaiKhoan = tk.id;
-                ddh.tenNguoiDat = tk.ten;
+                ddh.tenNguoiNhan = tk.ten;
+                ddh.diaChiNguoiNhan = tk.diaChi;
+                ddh.sdtNguoiNhan = tk.soDienThoai;
                 ddh.ngayDat = DateTime.Now;
                 ddh.trangThai = "1";
                 ddh.tongTien = TongTien();

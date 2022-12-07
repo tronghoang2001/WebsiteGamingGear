@@ -24,15 +24,6 @@ namespace WebsiteGamingGear.Models
         [StringLength(50)]
         public string tenTheLoai { get; set; }
 
-        [StringLength(200)]
-        public string hinhAnh { get; set; }
-
-        [StringLength(200)]
-        public string moTa { get; set; }
-
-        [StringLength(150)]
-        public string link { get; set; }
-
         public virtual DanhMucSP DanhMucSP { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -26,10 +26,10 @@ namespace GamingGear.Controllers
             return db.SanPhams.OrderByDescending(sp => sp.ngayThem).Take(count).ToList();
         }
         //Sản phẩm hiển thị ở trang chủ
-        public ActionResult TrangChu()
+        public ActionResult TrangChu(SanPham sp, DanhGia danhgia)
         {
             //Lay san pham
-            var sanpham = LaySanPham(6);           
+            var sanpham = LaySanPham(6);
             return View(sanpham);
         }
         public ActionResult LaySPTheoLuotXem()
@@ -79,13 +79,20 @@ namespace GamingGear.Controllers
             var sanpham = LaySanPham(36);            
             return View(sanpham.ToPagedList(pageNum,pageSize));
         }
-        
         //Chi tiết sản phẩm 
-        public ActionResult ChiTietSanPham(int id)
+        public ActionResult ChiTietSanPham(DanhGia danhgia, int id)
         {
             var sanpham = from sp in db.SanPhams where sp.idSanPham == id select sp;
-            //tang 1 luot xem
             var countview = db.SanPhams.FirstOrDefault(m => m.idSanPham == id);
+            if (danhgia.soSao != null)
+            {
+                //Trung bình đánh giá
+                double luotdanhgia = db.DanhGias.Where(m => m.idSanPham == id).Count();
+                double tongsosao = (double)db.DanhGias.Where(m => m.idSanPham == id).Select(n => n.soSao).Sum();
+                double trungbinhdanhgia = tongsosao / luotdanhgia;
+                ViewBag.Trungbinhdanhgia = trungbinhdanhgia;
+            }
+            //tang 1 luot xem         
             countview.luotXem++;
             db.SaveChanges();
             return View(sanpham.Single());
@@ -156,8 +163,6 @@ namespace GamingGear.Controllers
         {
             TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
             lienhe.idTaiKhoan = tk.id;
-            lienhe.soDienThoai = tk.soDienThoai;
-            lienhe.email = tk.email;
             lienhe.trangThai = "1";
             db.Configuration.ValidateOnSaveEnabled = false;
             db.LienHes.Add(lienhe);
@@ -188,6 +193,10 @@ namespace GamingGear.Controllers
         public ActionResult ChiTietTinTuc(int id)
         {
             var tintuc = from tt in db.TinTucs where tt.idTinTuc == id select tt;
+            //tang 1 luot xem
+            var countview = db.TinTucs.FirstOrDefault(m => m.idTinTuc == id);
+            countview.luotXem++;
+            db.SaveChanges();
             return View(tintuc.Single());
         }
         //Lay Danh muc tin tuc
@@ -242,8 +251,6 @@ namespace GamingGear.Controllers
                 binhluan.idTinTuc = id;
                 binhluan.noiDungBL = noidungbl;
                 binhluan.trangThai = "1";
-                binhluan.tenNguoiBL = tk.ten;
-                binhluan.anhDaiDien = tk.anhDaiDien;
                 binhluan.ngayThem = DateTime.Now;
                 if (ModelState.IsValid)
                 {
@@ -261,29 +268,46 @@ namespace GamingGear.Controllers
         }
 
         //Bình luận sản phẩm
-        public ActionResult ThemBinhLuanSP(FormCollection collection, int idsanpham)
+        public ActionResult ThemBinhLuanSP(DanhGia danhgia, int idsanpham)
         {
-            DanhGia binhluan = new DanhGia();
             TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
             var tintuc = from sp in db.SanPhams where sp.idSanPham == idsanpham select sp;
-            var noidungbl = collection["noiDungBL"];
+            var kiemtramuahang = db.ChiTietDDHs.Where(m => m.idSanPham == danhgia.idSanPham && m.DonDatHang.idTaiKhoan == tk.id && m.DonDatHang.trangThai == "3").Count();
+            var kiemtradanhgia = db.DanhGias.Where(m => m.idSanPham == danhgia.idSanPham && m.idNguoiDanhGia == tk.id).Count();
             if (tk == null)
             {
                 return RedirectToAction("DangNhap", "Account");
             }
             else
             {
-                binhluan.idNguoiDanhGia = tk.id;
-                binhluan.idSanPham = idsanpham;
-                binhluan.noiDung = noidungbl;
-                binhluan.trangThai = "1";
-                binhluan.tenNguoiDanhGia = tk.ten;
-                binhluan.anhDaiDien = tk.anhDaiDien;
-                binhluan.ngayThem = DateTime.Now;
-                if (ModelState.IsValid)
+                if(kiemtramuahang > 0)
                 {
-                    db.DanhGias.Add(binhluan);
-                    db.SaveChanges();
+                    if(kiemtradanhgia > 0)
+                    {
+                        ViewBag.Thongbao = "Bạn đã đánh giá sản phẩm này rồi!";
+                    }
+                    else if(danhgia.soSao == 0)
+                    {
+                        ViewBag.Thongbao1 = "Vui lòng chọn số sao!";
+                    }
+                    else
+                    {
+                        danhgia.idNguoiDanhGia = tk.id;
+                        danhgia.idSanPham = idsanpham;
+                        danhgia.noiDung = danhgia.noiDung;
+                        danhgia.soSao = danhgia.soSao;
+                        danhgia.trangThai = "1";
+                        danhgia.ngayThem = DateTime.Now;
+                        if (ModelState.IsValid)
+                        {
+                            db.DanhGias.Add(danhgia);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                else
+                {
+                    ViewBag.Thongbao2 = "Vui lòng mua sản phẩm và trải nghiệm trước khi đánh giá!";
                 }
             }
             return RedirectToAction("ChiTietSanPham", new { id = idsanpham});

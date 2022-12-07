@@ -23,8 +23,6 @@ namespace WebsiteGamingGear.Models
 
         public int idThuongHieu { get; set; }
 
-        public int? idGiamGia { get; set; }
-
         [Required]
         [StringLength(200)]
         public string tenSanPham { get; set; }
@@ -37,9 +35,6 @@ namespace WebsiteGamingGear.Models
 
         public int? soLuong { get; set; }
 
-        [StringLength(1)]
-        public string trangThai { get; set; }
-
         [Required]
         [StringLength(100)]
         public string hinhAnh { get; set; }
@@ -49,9 +44,6 @@ namespace WebsiteGamingGear.Models
 
         [Column(TypeName = "ntext")]
         public string moTaChiTiet { get; set; }
-
-        [StringLength(150)]
-        public string link { get; set; }
 
         public DateTime ngayThem { get; set; }
 
@@ -74,8 +66,6 @@ namespace WebsiteGamingGear.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDDH> ChiTietDDHs { get; set; }
-
-        public virtual ChuongTrinhGiamGia ChuongTrinhGiamGia { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhGia> DanhGias { get; set; }

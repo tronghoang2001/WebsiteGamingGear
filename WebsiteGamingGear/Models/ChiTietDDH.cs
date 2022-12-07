@@ -21,12 +21,6 @@ namespace WebsiteGamingGear.Models
 
         public int gia { get; set; }
 
-        [StringLength(1)]
-        public string trangThai { get; set; }
-
-        [StringLength(20)]
-        public string maGiamGia { get; set; }
-
         public int soLuong { get; set; }
 
         public virtual DonDatHang DonDatHang { get; set; }

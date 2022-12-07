@@ -23,13 +23,7 @@ namespace WebsiteGamingGear.Models
         [StringLength(1)]
         public string trangThai { get; set; }
 
-        [StringLength(100)]
-        public string tenNguoiBL { get; set; }
-
         public DateTime? ngayThem { get; set; }
-
-        [StringLength(200)]
-        public string anhDaiDien { get; set; }
 
         public virtual TaiKhoan TaiKhoan { get; set; }
 

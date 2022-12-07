@@ -9,13 +9,10 @@
 <body class="preloading">
     <!-- partial:index.partial.html -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="~/Scripts/GamingGearScripts/loader_email.js"></script>
     <link rel="stylesheet" href="~/css/myCss/loginstyle.css" />
-    <link rel="stylesheet" href="~/css/myCss/style.css" />
-    <div class="load">
-        <img src="~/Content/images/Loading.gif" />
-    </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <div id="form">
         @using (Html.BeginForm("DangKy", "Account", FormMethod.Post))
@@ -85,6 +82,12 @@
                                         <input class="form-control" data-val="true" data-val-length="The field matKhau must be a string with a maximum length of 200."
                                                data-val-length-max="200" data-val-required="The matKhau field is required." id="diaChi" name="diaChi" placeholder="Nhập địa chỉ" type="text" value="">
                                         <p class="help-block text-danger"></p>
+                                    </div>
+                                    <label style="padding-top:10px">Giới tính</label>
+                                    <div>
+                                        <label class="radio-inline"><input id="gioiTinh" name="gioiTinh" type="radio" value="1">Nam</label>
+                                        <label class="radio-inline"><input id="gioiTinh" name="gioiTinh" type="radio" value="2">Nữ</label>
+                                        <label class="radio-inline"><input id="gioiTinh" name="gioiTinh" type="radio" value="3">Khác</label>
                                     </div>
                                     @ViewBag.Fail
                                     <div class="mrgn-30-top">

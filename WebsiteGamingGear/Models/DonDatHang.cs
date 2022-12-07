@@ -18,12 +18,6 @@ namespace WebsiteGamingGear.Models
         [Key]
         public int idDDH { get; set; }
 
-        public int? idDCDDH { get; set; }
-
-        public int? idThanhToan { get; set; }
-
-        public int? idVanChuyen { get; set; }
-
         public DateTime ngayDat { get; set; }
 
         public int idTaiKhoan { get; set; }
@@ -47,9 +41,6 @@ namespace WebsiteGamingGear.Models
 
         [StringLength(10)]
         public string sdtNguoiNhan { get; set; }
-
-        [StringLength(100)]
-        public string tenNguoiDat { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDDH> ChiTietDDHs { get; set; }

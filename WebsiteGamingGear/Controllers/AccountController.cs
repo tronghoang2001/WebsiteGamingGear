@@ -132,7 +132,7 @@ namespace GamingGear.Controllers
                 tk.quyen = 1;         
                 tk.email = dangKy.Email;
                 tk.ten = dangKy.ten;
-                tk.gioiTinh = "3";
+                tk.gioiTinh = dangKy.gioiTinh;
                 tk.anhDaiDien = "/Images/svg/avatars/001-boy.svg";
                 tk.ngaySinh = dangKy.ngaySinh;
                 tk.soDienThoai = dangKy.soDienThoai;

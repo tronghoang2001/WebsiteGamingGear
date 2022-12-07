@@ -23,18 +23,6 @@ namespace WebsiteGamingGear.Models
         [StringLength(50)]
         public string tenDanhMuc { get; set; }
 
-        [StringLength(50)]
-        public string icon { get; set; }
-
-        [StringLength(200)]
-        public string hinhAnh { get; set; }
-
-        [StringLength(200)]
-        public string moTa { get; set; }
-
-        [StringLength(150)]
-        public string link { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPhams { get; set; }
 

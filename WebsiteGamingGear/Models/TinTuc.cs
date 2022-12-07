@@ -26,9 +26,6 @@ namespace WebsiteGamingGear.Models
         [StringLength(200)]
         public string tieuDeTin { get; set; }
 
-        [StringLength(200)]
-        public string tieuDeMoTa { get; set; }
-
         [Column(TypeName = "ntext")]
         public string noiDung { get; set; }
 
@@ -36,12 +33,6 @@ namespace WebsiteGamingGear.Models
 
         [StringLength(200)]
         public string hinhAnh1 { get; set; }
-
-        [StringLength(200)]
-        public string hinhAnh2 { get; set; }
-
-        [StringLength(1)]
-        public string trangThai { get; set; }
 
         public DateTime? ngaySoan { get; set; }
 

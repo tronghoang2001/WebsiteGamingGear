@@ -137,11 +137,11 @@
                                 }
                                 <div class="rating-box pt-20">
                                     <ul class="rating rating-with-review-item">
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
                                     </ul>
                                 </div>
                                 <div class="price-box pt-20">
@@ -262,8 +262,8 @@
                     </div>
                     <div id="reviews" class="tab-pane" role="tabpanel">
                         <div class="product-reviews">
-                            <div class="product-details-comment-block">                               
-                                @Html.Action("BinhLuanSP","NguoiDung", new { id = Model.idSanPham})
+                            <div class="product-details-comment-block">
+                                @Html.Action("BinhLuanSP", "NguoiDung", new { id = Model.idSanPham })
                                 <div class="review-btn">
                                     <a class="review-links"
                                        href="#"
@@ -301,18 +301,29 @@
                                                             {
                                                                 <div class="feedback-area">
                                                                     <div class="feedback">
-                                                                        <h3 class="feedback-title">Bình luận</h3>
+                                                                        <h3 class="feedback-title">Đánh giá</h3>
+                                                                        @ViewBag.Thongbao
+                                                                        @ViewBag.Thongbao1
+                                                                        @ViewBag.Thongbao2
                                                                         @Html.ValidationSummary(true)
                                                                         <p class="feedback-form">
-                                                                            <label for="feedback">Bình luận của bạn</label>
-                                                                            <textarea id="noiDungBL" name="noiDungBL"
+                                                                            <label for="feedback">Đánh giá của bạn</label>
+                                                                            <textarea id="noiDung" name="noiDung"
                                                                                       cols="45"
                                                                                       rows="8"
-                                                                                      aria-required="true"></textarea>                                                                                
+                                                                                      aria-required="true"></textarea>
                                                                         </p>
+                                                                        <label>Đánh giá theo sao</label>
+                                                                        <select id="soSao" name="soSao" class="star-rating">
+                                                                            <option value="1" />
+                                                                            <option value="2" />
+                                                                            <option value="3" />
+                                                                            <option value="4" />
+                                                                            <option value="5" />
+                                                                        </select>
                                                                         <input type="submit"
                                                                                name="submit"
-                                                                               value="Gửi" />                                                                           
+                                                                               value="Gửi" />
                                                                         <style>
                                                                             input:hover {
                                                                                 background-color: #ffd800
@@ -321,8 +332,8 @@
                                                                     </div>
                                                                 </div>
                                                             }
-                                                                <!-- Feedback Area End Here -->
-                                                            </div>
+                                                            <!-- Feedback Area End Here -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

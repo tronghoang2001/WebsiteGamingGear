@@ -10,7 +10,7 @@
     {
         <div class="row">
             <div class="comment-author-infos pt-25">
-                <span>@sanpham.tenNguoiDanhGia</span>
+                <span>@sanpham.TaiKhoan.ten</span>
                 <em>@sanpham.ngayThem</em>
             </div>
             <div class="author-avatar pt-15">
@@ -18,6 +18,48 @@
                      alt="User" />
             </div>
         </div>
+        <ul class="rating">
+            @if (sanpham.soSao == 1)
+            {
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+            }
+            else if (sanpham.soSao == 2)
+            {
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+            }
+            else if (sanpham.soSao == 3)
+            {
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+            }
+            else if (sanpham.soSao == 4)
+            {
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star-o"></i></li>
+            }
+            else
+            {
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            }          
+        </ul>
         <div class="comment-details">
             <p>@sanpham.noiDung</p>
         </div>

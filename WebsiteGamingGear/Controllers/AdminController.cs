@@ -80,7 +80,6 @@ namespace WebsiteGamingGear.Controllers
                     // luu hinh anh vao duong dan
                     fileUpload.SaveAs(path);
                     sanPham.hinhAnh = fileName;
-                    sanPham.trangThai = "1";
                     //luu vao CSDL
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.SanPhams.Add(sanPham);
@@ -243,6 +242,7 @@ namespace WebsiteGamingGear.Controllers
         [ValidateInput(false)]
         public ActionResult ThemTinTuc(TinTuc tinTuc, HttpPostedFileBase fileUpload)
         {
+            TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
             ViewBag.idDanhMuc = new SelectList(db.DanhMucTinTucs.ToList().OrderBy(n => n.tenDanhMuc), "idDanhMucTT", "tenDanhMuc");
             ViewBag.idTheLoai = new SelectList(db.TheLoaiTinTucs.ToList().OrderBy(n => n.tenTheLoai), "idTheLoaiTT", "tenTheLoai");
 
@@ -268,6 +268,7 @@ namespace WebsiteGamingGear.Controllers
                     // luu hinh anh vao duong dan
                     fileUpload.SaveAs(path);
                     tinTuc.hinhAnh1 = fileName;
+                    tinTuc.idTaiKhoan = tk.id;
                     //luu vao CSDL
                     db.Configuration.ValidateOnSaveEnabled = false;
                     db.TinTucs.Add(tinTuc);

@@ -12,23 +12,8 @@ namespace WebsiteGamingGear.Models
         [Key]
         public int idLienHe { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string tenNguoiLH { get; set; }
-
-        [StringLength(10)]
-        public string soDienThoai { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string email { get; set; }
-
         [Column(TypeName = "ntext")]
-        [Required]
         public string noiDung { get; set; }
-
-        [StringLength(50)]
-        public string hinhAnh { get; set; }
 
         [Column(TypeName = "ntext")]
         public string phanHoiLH { get; set; }

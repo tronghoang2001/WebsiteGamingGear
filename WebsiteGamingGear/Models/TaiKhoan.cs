@@ -14,7 +14,6 @@ namespace WebsiteGamingGear.Models
         {
             BinhLuanTinTucs = new HashSet<BinhLuanTinTuc>();
             DanhGias = new HashSet<DanhGia>();
-            DiaChiKhachHangs = new HashSet<DiaChiKhachHang>();
             DonDatHangs = new HashSet<DonDatHang>();
             LienHes = new HashSet<LienHe>();
             TinTucs = new HashSet<TinTuc>();
@@ -70,15 +69,10 @@ namespace WebsiteGamingGear.Models
         public virtual ICollection<DanhGia> DanhGias { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DiaChiKhachHang> DiaChiKhachHangs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonDatHang> DonDatHangs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LienHe> LienHes { get; set; }
-
-        public virtual Quyen Quyen1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TinTuc> TinTucs { get; set; }
