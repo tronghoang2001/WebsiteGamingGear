@@ -158,7 +158,7 @@ namespace GamingGear.Controllers
             ViewBag.Fail = fail;
             return View(dangKy);
         }
-        //Gửi email xác thựctrang này chỉ tồn tại nếu bạn vừa dk xong, nếu bạn refesh lại trang thì trang này sẽ không hiện nữa
+        //Gửi email xác thực trang này chỉ tồn tại nếu bạn vừa dk xong, nếu bạn refesh lại trang thì trang này sẽ không hiện nữa
         //nếu bạn muuốn xác thực lại tk thì có thể dùng cách quên mật khẩu lúc đó tài khoản của bạn sẽ được kích hoạt khi bạn thay đổi mk thành công
 
         [HttpGet]

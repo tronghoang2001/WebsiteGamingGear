@@ -137,11 +137,78 @@
                                 }
                                 <div class="rating-box pt-20">
                                     <ul class="rating rating-with-review-item">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
+                                        @if (ViewBag.Trungbinhdanhgia > 0 && ViewBag.Trungbinhdanhgia <= 1.25)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 1.25 && ViewBag.Trungbinhdanhgia <= 1.75)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-half"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 1.75 && ViewBag.Trungbinhdanhgia <= 2.25)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 2.25 && ViewBag.Trungbinhdanhgia <= 2.75)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-half"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 2.75 && ViewBag.Trungbinhdanhgia <= 3.25)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 3.25 && ViewBag.Trungbinhdanhgia <= 3.75)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-half"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 3.75 && ViewBag.Trungbinhdanhgia <= 4.25)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                        else if (ViewBag.Trungbinhdanhgia > 4.25 && ViewBag.Trungbinhdanhgia <= 4.75)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-half"></i></li>
+                                        }
+                                        else
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        }
                                     </ul>
                                 </div>
                                 <div class="price-box pt-20">

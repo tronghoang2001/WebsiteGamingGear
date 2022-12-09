@@ -84,13 +84,11 @@ namespace GamingGear.Controllers
         {
             var sanpham = from sp in db.SanPhams where sp.idSanPham == id select sp;
             var countview = db.SanPhams.FirstOrDefault(m => m.idSanPham == id);
-            if (danhgia.soSao != null)
+            double luotdanhgia = db.DanhGias.Where(m => m.idSanPham == id).Count();
+            if (luotdanhgia > 0)
             {
                 //Trung bình đánh giá
-                double luotdanhgia = db.DanhGias.Where(m => m.idSanPham == id).Count();
-                double tongsosao = (double)db.DanhGias.Where(m => m.idSanPham == id).Select(n => n.soSao).Sum();
-                double trungbinhdanhgia = tongsosao / luotdanhgia;
-                ViewBag.Trungbinhdanhgia = trungbinhdanhgia;
+                ViewBag.Trungbinhdanhgia = (Double)(db.DanhGias.Where(m => m.idSanPham == id).Select(n => n.soSao).Sum()) / luotdanhgia;
             }
             //tang 1 luot xem         
             countview.luotXem++;
