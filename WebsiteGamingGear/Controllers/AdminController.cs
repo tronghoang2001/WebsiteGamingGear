@@ -27,7 +27,7 @@ namespace WebsiteGamingGear.Controllers
             ViewBag.LuotXem = db.SanPhams.Select(a => a.luotXem).Sum();
             int pageNumber = (page ?? 1);
             int pageSize = 10;
-            return View(db.DonDatHangs.ToList().OrderBy(n => n.idDDH).ToPagedList(pageNumber, pageSize));
+            return View(db.DonDatHangs.ToList().OrderBy(n => n.trangThai).ToPagedList(pageNumber, pageSize));
         }
 
         //San Pham
@@ -36,7 +36,7 @@ namespace WebsiteGamingGear.Controllers
             int pageNumber = (page ?? 1);
             int pageSize = 10;
             //return View(db.SanPhams.ToList());
-            return View(db.SanPhams.ToList().OrderBy(n => n.idSanPham).ToPagedList(pageNumber, pageSize));
+            return View(db.SanPhams.ToList().OrderBy(n => n.soLuong).ToPagedList(pageNumber, pageSize));
         }
         //THÊM MỚI SẢN PHẨM
         [HttpGet]
@@ -430,7 +430,7 @@ namespace WebsiteGamingGear.Controllers
         {
             int pageNumber = (page ?? 1);
             int pageSize = 10;
-            return View(db.LienHes.ToList().OrderBy(n => n.idLienHe).ToPagedList(pageNumber, pageSize));
+            return View(db.LienHes.ToList().OrderBy(n => n.trangThai).ToPagedList(pageNumber, pageSize));
         }
         //Phản hồi liên hệ
         [HttpGet]
@@ -455,13 +455,13 @@ namespace WebsiteGamingGear.Controllers
             //Update trong CSDL
             UpdateModel(lienhe);
             db.SaveChanges();
-            return this.PhanHoiLienHe(id);
+            return RedirectToAction("LienHe");
         }
         public ActionResult BinhLuanTinTuc(int? page)
         {
             int pageNumber = (page ?? 1);
             int pageSize = 10;
-            return View(db.BinhLuanTinTucs.ToList().OrderBy(n => n.idBinhLuan).ToPagedList(pageNumber, pageSize));
+            return View(db.BinhLuanTinTucs.ToList().OrderBy(n => n.trangThai).ToPagedList(pageNumber, pageSize));
         }
         //Chuyển trạng thái chưa duyệt
         public ActionResult BinhLuanThuHoi(int id)
@@ -493,7 +493,7 @@ namespace WebsiteGamingGear.Controllers
         {
             int pageNumber = (page ?? 1);
             int pageSize = 10;
-            return View(db.DanhGias.ToList().OrderBy(n => n.idDanhGia).ToPagedList(pageNumber, pageSize));
+            return View(db.DanhGias.ToList().OrderBy(n => n.trangThai).ToPagedList(pageNumber, pageSize));
         }
         //Chuyển trạng thái chưa duyệt
         public ActionResult BinhLuanSPThuHoi(int id)

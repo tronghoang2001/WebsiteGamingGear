@@ -2,6 +2,9 @@
 @using PagedList.Mvc
 @model PagedList.PagedList<WebsiteGamingGear.Models.DonDatHang>
 @{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+@{
+    TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
+}
 <aside class="app-sidebar">
     <div class="app-sidebar__user">
         <img class="app-sidebar__user-avatar"
@@ -20,47 +23,45 @@
                 <i class="app-menu__icon bx bx-tachometer"></i><span class="app-menu__label">Bảng điều khiển</span>
             </a>
         </li>
-        <li>
-            <a class="app-menu__item" href="@Url.Action("SanPham","Admin")">
-                <i class="app-menu__icon bx bx-purchase-tag-alt"></i><span class="app-menu__label">Quản lý sản phẩm</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="@Url.Action("LienHe","Admin")">
-                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý liên hệ</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
-                <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="@Url.Action("BinhLuanTinTuc","Admin")">
-                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý bình luận</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="@Url.Action("BinhLuanSanPham","Admin")">
-                <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đánh giá</span>
-            </a>
-        </li>
-        <li>
-            <a class="app-menu__item" href="@Url.Action("TaiKhoan","Admin")">
-                <i class="app-menu__icon bx bx-user"></i><span class="app-menu__label">Quản lý tài khoản</span>
-            </a>
-        </li>
+        @if (tk.quyen == 3)
+        {
+            <li>
+                <a class="app-menu__item" href="@Url.Action("SanPham","Admin")">
+                    <i class="app-menu__icon bx bx-purchase-tag-alt"></i><span class="app-menu__label">Quản lý sản phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" href="@Url.Action("LienHe","Admin")">
+                    <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý liên hệ</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" href="@Url.Action("TinTuc","Admin")">
+                    <i class="app-menu__icon bx bx-news"></i><span class="app-menu__label">Quản lý tin tức </span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" href="@Url.Action("BinhLuanTinTuc","Admin")">
+                    <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý bình luận</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" href="@Url.Action("BinhLuanSanPham","Admin")">
+                    <i class="app-menu__icon bx bx-task"></i><span class="app-menu__label">Quản lý đánh giá</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" href="@Url.Action("TaiKhoan","Admin")">
+                    <i class="app-menu__icon bx bx-user"></i><span class="app-menu__label">Quản lý tài khoản</span>
+                </a>
+            </li>
+        }
     </ul>
 </aside>
 <main class="app-content">
     <div class="row">
         <div class="col-md-12">
             <div class="app-title">
-                <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="#"><b>Bảng điều khiển</b></a>
-                    </li>
-                </ul>
                 <div id="clock"></div>
             </div>
         </div>
@@ -190,16 +191,19 @@
                                             }
                                         </button>
                                     </td>
-                                    @if(item.trangThaiThanhToan == "1") 
-                                    { 
+                                    @if (item.trangThaiThanhToan == "1")
+                                    {
                                         <td>
                                             <span class="badge bg-danger">Chờ thanh toán</span>
-                                        </td>                                     
+                                        </td>
+
                                     }
-                                    else { 
+                                    else
+                                    {
                                         <td>
                                             <span class="badge bg-success">Đã thanh toán</span>
-                                        </td>                                          
+                                        </td>
+
                                     }
                                 </tr>
                             }
@@ -232,3 +236,60 @@
         </p>
     </div>
 </main>
+<!-- Essential javascripts for application to work-->
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="src/jquery.table2excel.js"></script>
+<script src="js/main.js"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="js/plugins/pace.min.js"></script>
+<!-- Page specific javascripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<!-- Data table plugin-->
+<script type="text/javascript"
+        src="js/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="~/js/plugins/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+    $("#sampleTable").DataTable();
+    //Thời Gian
+    function time() {
+        var today = new Date();
+        var weekday = new Array(7);
+        weekday[0] = "Chủ Nhật";
+        weekday[1] = "Thứ Hai";
+        weekday[2] = "Thứ Ba";
+        weekday[3] = "Thứ Tư";
+        weekday[4] = "Thứ Năm";
+        weekday[5] = "Thứ Sáu";
+        weekday[6] = "Thứ Bảy";
+        var day = weekday[today.getDay()];
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        nowTime = h + " giờ " + m + " phút " + s + " giây";
+        if (dd < 10) {
+            dd = "0" + dd;
+        }
+        if (mm < 10) {
+            mm = "0" + mm;
+        }
+        today = day + ", " + dd + "/" + mm + "/" + yyyy;
+        tmp = '<span class="date"> ' + today + " - " + nowTime + "</span>";
+        document.getElementById("clock").innerHTML = tmp;
+        clocktime = setTimeout("time()", "1000", "Javascript");
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+    }</script>

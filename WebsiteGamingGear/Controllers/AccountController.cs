@@ -133,7 +133,7 @@ namespace GamingGear.Controllers
                 tk.email = dangKy.Email;
                 tk.ten = dangKy.ten;
                 tk.gioiTinh = dangKy.gioiTinh;
-                tk.anhDaiDien = "/Images/svg/avatars/001-boy.svg";
+                tk.anhDaiDien = "newUser.png";
                 tk.ngaySinh = dangKy.ngaySinh;
                 tk.soDienThoai = dangKy.soDienThoai;
                 tk.diaChi = dangKy.diaChi;
@@ -427,6 +427,7 @@ namespace GamingGear.Controllers
             var sdt = collection["sdtKH"];
             var email = collection["Email"];
             var ngaySinh = String.Format("{0:MM/dd/yyyy}",collection["ngaySinh"]);
+            var diachi = collection["diaChi"];
             taikhoan.id = id;
             //Nếu người dùng không nhập đủ thông tin            
             if (string.IsNullOrEmpty(ngaySinh))
@@ -458,6 +459,7 @@ namespace GamingGear.Controllers
             taikhoan.ten = hoten;
             taikhoan.soDienThoai = sdt;
             taikhoan.email = email;
+            taikhoan.diaChi = diachi;
             //Update trong CSDL
             //check nhiều validation thì phải cho nó false nếu không sẽ bị lỗi khi chạy đến đây
             db.Configuration.ValidateOnSaveEnabled = false;

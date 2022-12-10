@@ -272,6 +272,7 @@
     <Content Include="Content\images\menu\li-bg-menu.jpg" />
     <Content Include="Content\images\menu\logo\1.jpg" />
     <Content Include="Content\images\menu\logo\2.jpg" />
+    <Content Include="Content\images\newUser.png" />
     <Content Include="Content\images\payment\1.png" />
     <Content Include="Content\images\product-details\1.jpg" />
     <Content Include="Content\images\product-details\admin.png" />
@@ -306,6 +307,7 @@
     <Content Include="Content\images\TinTuc3.jpg" />
     <Content Include="Content\images\TinTuc4.jpg" />
     <Content Include="Content\images\Loading.gif" />
+    <Content Include="Content\images\MailConfirm.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap.min.css" />

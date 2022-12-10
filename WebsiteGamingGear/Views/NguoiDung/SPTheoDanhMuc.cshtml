@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="breadcrumb-content">
                     <ul>
-                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="@Url.Action("TrangChu","NguoiDung")">Trang chủ</a></li>
                         <li class="active">Sản phẩm</li>
                     </ul>
                 </div>
@@ -48,13 +48,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <!-- Begin Li's Banner Area -->
-                        <div class="single-banner shop-page-banner">
-                            <a href="#">
-                                <img src="images/bg-banner/2.jpg" alt="Li's Static Banner" />
-                            </a>
-                        </div>
-                        <!-- Li's Banner Area End Here -->
                         <!-- shop-top-bar start -->
                         <div class="shop-top-bar mt-30">
                             <div class="shop-bar-inner">
@@ -100,7 +93,13 @@
                                     <ul class="li-blog-archive">
                                         @Html.Action("TheLoai", "NguoiDung")
                                     </ul>
-                                </div>                               
+                                </div>      
+                                <div class="li-blog-sidebar">
+                                    <h4 class="li-blog-sidebar-title">Thương hiệu</h4>
+                                    <ul class="li-blog-archive">
+                                        @Html.Action("ThuongHieu", "NguoiDung")
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <!--left sidebar end-->
@@ -126,16 +125,6 @@
                                                         </div>
                                                         <div class="product_desc">
                                                             <div class="product_desc_info">
-
-                                                                <div class="rating-box">
-                                                                    <ul class="rating">
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                        <li><i class="fa fa-star-o"></i></li>
-                                                                    </ul>
-                                                                </div>
 
                                                                 <h4>
                                                                     <a class="product_name"

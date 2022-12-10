@@ -72,6 +72,7 @@
                                 <th>Tên người BL</th>
                                 <th width="200">Tên sản phẩm</th>
                                 <th width="400">Nội dung</th>
+                                <th>Số sao</th>
                                 <th>Trạng thái</th>
                                 <th>Ngày thêm</th>
                             </tr>
@@ -84,6 +85,7 @@
                                     <td>@item.TaiKhoan.ten</td>
                                     <td>@item.SanPham.tenSanPham</td>
                                     <td>@item.noiDung</td>
+                                    <td>@item.soSao</td>
                                     <td>
                                         <button class="StatusOrder btn p-0" data-status="@item.trangThai" data-id="@item.idDanhGia" data-toggle="modal"
                                                 data-target="#modal-secondary">
